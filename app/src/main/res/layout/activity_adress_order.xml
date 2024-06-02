@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdressOrder">
+
+    <EditText
+        android:id="@+id/addressEditAdressOrder"
+        android:layout_width="362dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="432dp"
+        android:background="@drawable/input_shape"
+        android:backgroundTint="#EDEDED"
+        android:ems="10"
+        android:hint="bd. Moscova 20/3"
+        android:inputType="text"
+        android:textColor="#A8A8A8"
+        android:textColorHint="#9C9C9C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/adress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:text="Address"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextText"
+
+        android:layout_width="362dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="336dp"
+        android:background="@drawable/input_shape"
+        android:backgroundTint="#DFDFDF"
+        android:ems="10"
+        android:hint="+84 123 456 789"
+        android:inputType="text"
+        android:textColor="#A8A8A8"
+        android:textColorHint="#9C9C9C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="304dp"
+        android:text="Phone Number"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nameEditAdressOrder"
+
+        android:layout_width="362dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/input_shape"
+        android:backgroundTint="#EDEDED"
+        android:ems="10"
+        android:hint="John Doe"
+        android:inputType="text"
+        android:textColor="#A8A8A8"
+        android:textColorHint="#9C9C9C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/cityEditAdressOrder"
+
+        android:layout_width="168dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="236dp"
+        android:background="@drawable/input_shape"
+        android:backgroundTint="#EDEDED"
+        android:ems="10"
+        android:hint="Modova"
+        android:inputType="text"
+        android:textColor="#A8A8A8"
+        android:textColorHint="#9C9C9C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/countryEditAdressOrder"
+
+        android:layout_width="168dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="236dp"
+        android:background="@drawable/input_shape"
+        android:backgroundTint="#EDEDED"
+        android:ems="10"
+        android:hint="Modova"
+        android:inputType="text"
+        android:textColor="#A8A8A8"
+        android:textColorHint="#9C9C9C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/phoneEditAdressOrder"
+        android:layout_width="362dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="336dp"
+        android:background="@drawable/input_shape"
+        android:backgroundTint="#EDEDED"
+        android:ems="10"
+        android:hint="+84 123 456 789"
+        android:inputType="text"
+        android:textColor="#A8A8A8"
+        android:textColorHint="#9C9C9C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="304dp"
+        android:text="Phone Number"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/circle_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow_back_24" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Address"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:text="Name"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="204dp"
+        android:text="Country"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="204dp"
+        android:text="City"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:background="@drawable/button_login_shape"
+        android:text="Login"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
