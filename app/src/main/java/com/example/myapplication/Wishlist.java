@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.ProductAdapter;
 import com.example.myapplication.model.Product;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Wishlist extends AppCompatActivity {
+    private BottomNavigationView navigationView;
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
     private List<Product> productList;
@@ -21,6 +23,8 @@ public class Wishlist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wishlist);
+        navigationView = findViewById(R.id.bottom_nav);
+        navigationView.setSelectedItemId(R.id.action_wishlist);
 
 
         productList = new ArrayList<>();
@@ -38,5 +42,11 @@ public class Wishlist extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter = new ProductAdapter(productList);
         recyclerView.setAdapter(adapter);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Update the selected item to Wishlist
+        navigationView.setSelectedItemId(R.id.action_wishlist);
     }
 }

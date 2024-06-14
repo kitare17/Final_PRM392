@@ -30,6 +30,7 @@ public class NavigationBar extends AppCompatActivity {
                 } else if (itemId == R.id.action_wishlist) {
                     Intent intent = new Intent(NavigationBar.this, Wishlist.class);
                     startActivity(intent);
+                    return true;
                 }
                 else if (itemId == R.id.action_cart) {
                     Toast.makeText(NavigationBar.this, "Cart", Toast.LENGTH_SHORT).show();
