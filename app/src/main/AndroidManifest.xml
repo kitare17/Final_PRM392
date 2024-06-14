@@ -13,7 +13,11 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".AddNewCard"
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Wishlist"
             android:exported="false" />
         <activity
             android:name=".NewPassword"
@@ -25,7 +29,7 @@
             android:name=".Home"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordEmail"
+            android:name=".NavigationBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

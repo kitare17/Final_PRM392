@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/img"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/heart_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/heart"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="200dp">
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nike Sportswear Club Fleece" />
+
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$99"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>
