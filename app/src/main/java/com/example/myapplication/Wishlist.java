@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.ProductAdapter;
+import com.example.myapplication.adapter.WishListAdapter;
 import com.example.myapplication.model.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class Wishlist extends AppCompatActivity {
     private BottomNavigationView navigationView;
     private RecyclerView recyclerView;
-    private ProductAdapter adapter;
+    private WishListAdapter adapter;
     private List<Product> productList;
 
     @Override
@@ -40,7 +41,7 @@ public class Wishlist extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvProducts);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new ProductAdapter(productList);
+        adapter = new WishListAdapter(productList);
         recyclerView.setAdapter(adapter);
     }
     @Override

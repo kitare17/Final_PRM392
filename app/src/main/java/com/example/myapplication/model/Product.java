@@ -17,6 +17,12 @@ public class Product {
         this.price = price;
         this.imageUrl = imageUrl;
     }
+
+    public Product(int imageUrl, String name, int price) {
+        this.imageUrl = imageUrl;
+        this.name = name;
+        this.price = price;
+    }
     public Product() {
     }
 
