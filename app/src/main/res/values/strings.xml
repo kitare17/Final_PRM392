@@ -7,4 +7,6 @@
     <string name="view_all">View All</string>
     <string name="welcome_to_fly">Welcome to Flystore.</string>
     <string name="choose_brand">Choose Brand</string>
+    <string name="open_slide_bar">Open slide bar</string>
+    <string name="close_slide_bar">Close slide bar</string>
 </resources>
