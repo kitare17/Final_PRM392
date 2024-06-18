@@ -12,8 +12,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.database.UserInfoRepository;
+import com.example.myapplication.model.UserInfo;
+import com.example.myapplication.view_model.UserViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -22,6 +25,7 @@ public class Profile extends Fragment {
     AppCompatButton saveBtn;
     EditText fullnameEditText;
 
+    UserViewModel userViewModel;
 
 
     @Override
@@ -39,25 +43,20 @@ public class Profile extends Fragment {
         fullnameEditText = (EditText) view.findViewById(R.id.fullnameEdit);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String googleId = sharedPreferences.getString("googleId", "googleId");
-
-
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Profile updated", Toast.LENGTH_SHORT).show();
                 UserInfoRepository userInfoRepository = new UserInfoRepository(getContext());
                 String fullname = fullnameEditText.getText().toString();
                 userInfoRepository.updateProfile(googleId, fullname);
+                UserInfo userInfo = new UserInfo();
+                userInfo.setFullname(fullname);
+                userViewModel.setUserInfo(userInfo);
                 sharedPreferences.edit().putString("fullname", fullname).apply();
 
-                NavigationView navigationView = (NavigationView) ((MainActivity)getContext()).findViewById(R.id.nav_view);
-                View headerView = navigationView.getHeaderView(0); // 0-indexed
-
-// Find the TextView inside the header layout
-                TextView headerTextView = headerView.findViewById(R.id.fullnameSlideBar);
-                headerTextView.setText(fullname);
 
             }
         });
