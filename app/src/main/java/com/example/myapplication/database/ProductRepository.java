@@ -9,35 +9,44 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 
+import com.example.myapplication.adapter.ProductTestAdapter;
+import com.example.myapplication.model.Brand;
+import com.example.myapplication.model.ProductTest;
 
-import com.example.myapplication.model.Product;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository extends SQLiteOpenHelper {
 
     private Context context;
-
     public static final String DATABASE_NAME = "DeskDelights";
-
-    public static final String TABLE_NAME = "Product";
     public static final int DATABASE_VERSION = 1;
 
+    public static final String TABLE_NAME_PRODUCT = "Product";
+    public static final String TABLE_NAME_PRODUCT_IMAGE = "Product_Image";
+    public static final String BRAND_TABLE_NAME = "Brand";
 
+    // Columns for Product table
     public static final String COLUMN_ID = "product_id";
     public static final String COLUMN_NAME = "product_name";
+    public static final String COLUMN_DETAIL = "product_detail";
+    public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_CATEGORY_ID = "category_id";
+    public static final String COLUMN_BRAND_ID = "brand_id";
 
-    public static final String COlUMN_DETAIL = "product_detail";
-    public static final String COlUMN_PRICE = "price";
-    public static final String COlUMN_CATEGORY_ID = "category_id";
-    public static final String COlUMN_BRAND_ID = "brand_id";
+    // Columns for ProductImage table
+    public static final String COLUMN_IMAGE_ID = "image_id";
+    public static final String COLUMN_IMAGE_URL = "image_url";
+    public static final String COLUMN_PRODUCT_ID = "product_id";
+
+    // Columns for Brand table
+    public static final String BRAND_COLUMN_ID = "brand_id";
+    public static final String BRAND_COLUMN_IMAGE = "brand_img";
+    public static final String BRAND_COLUMN_NAME = "brand_name";
 
     public ProductRepository(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
@@ -67,24 +76,32 @@ public class ProductRepository extends SQLiteOpenHelper {
 //        }
 //    }
 
-    public List<Product> getAllProduct() {
-        List<Product> listProduct = new ArrayList<>();
+
+
+    public List<ProductTest> getAllProduct() {
+        List<ProductTest> listProduct = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        System.out.println("ok");
-        Cursor cursor = db.rawQuery("SELECT " + COLUMN_ID + ", " + COLUMN_NAME + ", " + COlUMN_DETAIL + ", " + COlUMN_PRICE + " FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT p." + COLUMN_ID + ", p." + COLUMN_NAME + ", p." + COLUMN_DETAIL +
+                ", p." + COLUMN_PRICE + ", pi." + COLUMN_IMAGE_URL +
+                " FROM " + TABLE_NAME_PRODUCT + " p" +
+                " LEFT JOIN " + TABLE_NAME_PRODUCT_IMAGE + " pi" +
+                " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID,null);
+
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
                 String detail = cursor.getString(2);
                 double price = cursor.getDouble(3);
-                Product product = new Product();
+                String imageUrl = cursor.getString(4); // Fetch image URL
 
+                ProductTest product = new ProductTest();
                 product.setId(id);
                 product.setName(name);
                 product.setProductDetail(detail);
                 product.setPrice(price);
-                System.out.println(product);
+                product.setImageUrl(imageUrl); // Set image URL
+
                 listProduct.add(product);
             } while (cursor.moveToNext());
         }
@@ -92,6 +109,22 @@ public class ProductRepository extends SQLiteOpenHelper {
         return listProduct;
     }
 
+    public List<Brand> getAllBrands() {
+        List<Brand> brandList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + BRAND_COLUMN_ID + ", " + BRAND_COLUMN_IMAGE + ", " + BRAND_COLUMN_NAME + " FROM " + BRAND_TABLE_NAME, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String logoResId = cursor.getString(1);
+                String name = cursor.getString(2);
+                Brand brand = new Brand(id, logoResId, name);
+                brandList.add(brand);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return brandList;
+    }
     public static void main(String[] args) {
 
 
