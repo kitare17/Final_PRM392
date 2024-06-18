@@ -75,7 +75,7 @@ public class UserInfoRepository extends SQLiteOpenHelper {
         }
     }
 
-    public boolean checkExistIdGoogle(String userid) {
+    public boolean checkExistIdGoogle(String googleId) {
         SQLiteDatabase db = this.getWritableDatabase();
         System.out.println("zo ne");
         boolean checkExist = false;
@@ -84,7 +84,7 @@ public class UserInfoRepository extends SQLiteOpenHelper {
                 TABLE_NAME,
                 new String[]{COlUMN_GOOGLE_ID},
                 COlUMN_GOOGLE_ID + "=?",
-                new String[]{String.valueOf(userid)},
+                new String[]{String.valueOf(googleId)},
                 null,
                 null,
                 null,
@@ -93,6 +93,36 @@ public class UserInfoRepository extends SQLiteOpenHelper {
             checkExist = true;
         }
         return checkExist;
+    }
+
+    public UserInfo getUserByIdGoogle(String googleId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        System.out.println("zo ne");
+        boolean checkExist = false;
+
+        Cursor cursor = db.query(
+                TABLE_NAME,
+                new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_EMAIL, COlUMN_AVATAR, COlUMN_ROLE, COlUMN_GOOGLE_ID},
+                COlUMN_GOOGLE_ID + "=?",
+                new String[]{String.valueOf(googleId)},
+                null,
+                null,
+                null,
+                null);
+        if (cursor.moveToNext()) {
+            String userId = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
+            String fullname = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+            String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
+
+            String avatar = cursor.getString(cursor.getColumnIndex(COlUMN_AVATAR));
+
+            int role = cursor.getInt(cursor.getColumnIndex(COlUMN_ROLE));
+//            String googleId = cursor.getString(cursor.getColumnIndex(COlUMN_GOOGLE_ID));
+            UserInfo userInfo = new UserInfo(userId, fullname, email, avatar, role, googleId);
+            return userInfo;
+
+        }
+        return null;
     }
 
     public static void main(String[] args) {

@@ -13,7 +13,16 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo( String fullname, String email, String avatar, int role, String googleId) {
+    public UserInfo(String userId, String fullname, String email, String avatar, int role, String googleId) {
+        this.userId = userId;
+        this.fullname = fullname;
+        this.email = email;
+        this.avatar = avatar;
+        this.role = role;
+        this.googleId = googleId;
+    }
+
+    public UserInfo(String fullname, String email, String avatar, int role, String googleId) {
         this.fullname = fullname;
         this.email = email;
         this.avatar = avatar;
@@ -67,5 +76,17 @@ public class UserInfo {
 
     public void setGoogleId(String googleId) {
         this.googleId = googleId;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userId='" + userId + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", role=" + role +
+                ", googleId='" + googleId + '\'' +
+                '}';
     }
 }
