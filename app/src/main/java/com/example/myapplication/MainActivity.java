@@ -56,11 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Setting()).commit();
-//            navigationView.setCheckedItem(R.id.nav_settings);
-//        }
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Profile()).commit();
+            navigationView.setCheckedItem(R.id.nav_profile);
+        }
     }
 
     @Override
@@ -88,4 +87,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
 }

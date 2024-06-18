@@ -124,6 +124,19 @@ public class UserInfoRepository extends SQLiteOpenHelper {
         }
         return null;
     }
+    public boolean updateProfile(String googleId,String fullname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        System.out.println("zo ne");
+        boolean checkExist = false;
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NAME,fullname);
+        db.update(TABLE_NAME, cv, COlUMN_GOOGLE_ID+" = ?", new String[]{googleId});
+
+        return true;
+    }
+
+
 
     public static void main(String[] args) {
 
