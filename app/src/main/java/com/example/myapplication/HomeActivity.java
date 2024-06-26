@@ -10,30 +10,34 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.BrandAdapter;
-import com.example.myapplication.adapter.ProductAdapter;
+import com.example.myapplication.adapter.ProductTestAdapter;
+import com.example.myapplication.database.ProductRepository;
 import com.example.myapplication.databinding.ActivityHomeBinding;
 import com.example.myapplication.model.Brand;
 import com.example.myapplication.model.Product;
+import com.example.myapplication.model.ProductTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
     private RecyclerView productsRecyclerView;
-    private ProductAdapter productAdapter;
-    private List<Product> productList;
+    private ProductTestAdapter ProductTestAdapter;
+    private List<ProductTest> productList;
     private RecyclerView brandsRecyclerView;
     private BrandAdapter brandAdapter;
     private List<Brand> brandsList;
+    private ProductRepository productRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Initialize the binding and set the content view to the root of the binding
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Initialize the ProductRepository
+        productRepository = new ProductRepository(this);
 
         // Initialize data
         initializeData();
@@ -54,19 +58,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initializeData() {
         // Initialize the brand list and add brands
-        brandsList = new ArrayList<>();
-        brandsList.add(new Brand(1, R.drawable.adidas_brand, "Adidas"));
-        brandsList.add(new Brand(1, R.drawable.adidas_brand, "Adidas"));
-        brandsList.add(new Brand(1, R.drawable.adidas_brand, "Adidas"));
-        brandsList.add(new Brand(1, R.drawable.adidas_brand, "Adidas"));
+//        brandsList = new ArrayList<>();
+//        brandsList.add(new Brand(1, R.drawable.adidas_brand, "Adidas"));
+//        brandsList.add(new Brand(2, R.drawable.adidas_brand, "Nike"));
+//        brandsList.add(new Brand(3, R.drawable.adidas_brand, "Puma"));
+//        brandsList.add(new Brand(4, R.drawable.adidas_brand, "Reebok"));
 
-        // Initialize the product list and populate with products
-        productList = new ArrayList<>();
-        productList.add(new Product(1, "Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product(1, "Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product(1, "Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product(1, "Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product(1, "Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
+        // Get all products from the repository
+        productList = productRepository.getAllProduct();
+        brandsList = productRepository.getAllBrands();
     }
 
     private void setupRecyclerViews() {
@@ -79,7 +79,13 @@ public class HomeActivity extends AppCompatActivity {
         // Setup RecyclerView for products
         productsRecyclerView = binding.productRecyclerView;
         productsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        productAdapter = new ProductAdapter(productList, getLayoutInflater());
-        productsRecyclerView.setAdapter(productAdapter);
+        ProductTestAdapter = new ProductTestAdapter(productList, getLayoutInflater());
+        productsRecyclerView.setAdapter(ProductTestAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        productRepository.close();
+        super.onDestroy();
     }
 }
