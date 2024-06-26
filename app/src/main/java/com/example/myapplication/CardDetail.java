@@ -21,11 +21,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardDetail extends AppCompatActivity  {
-     RecyclerView recyclerView;
-     TextView subTotalValueTextView;
-     TextView shippingCostValueTextView;
-     TextView totalValueTextView;
+public class CardDetail extends AppCompatActivity {
+    RecyclerView recyclerView;
+    TextView subTotalValueTextView;
+    TextView shippingCostValueTextView;
+    TextView totalValueTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,39 +37,41 @@ public class CardDetail extends AppCompatActivity  {
         shippingCostValueTextView = findViewById(R.id.shippingCostValueTextView);
         totalValueTextView = findViewById(R.id.totalValueTextView);
 
-
-
-        List<ProductCart> itemList=getListItem();
+        List<ProductCart> itemList = getListItem();
         ProductCartAdapter productCartAdapter = new ProductCartAdapter(itemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        subTotalValueTextView.setText(productCartAdapter.totalPrice()+"");
-        shippingCostValueTextView.setText(productCartAdapter.shippingCost()+"");
-        totalValueTextView.setText((productCartAdapter.totalPrice()+productCartAdapter.shippingCost())+"");
+        subTotalValueTextView.setText(productCartAdapter.totalPrice() + " VNĐ");
+        shippingCostValueTextView.setText(productCartAdapter.shippingCost() + " VNĐ");
+        totalValueTextView.setText((productCartAdapter.totalPrice() + productCartAdapter.shippingCost()) + " VNĐ");
 
         productCartAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
                 super.onChanged();
                 Toast.makeText(getApplicationContext(), "change! ", Toast.LENGTH_LONG).show();
+                subTotalValueTextView.setText(productCartAdapter.totalPrice() + " VNĐ");
+                shippingCostValueTextView.setText(productCartAdapter.shippingCost() + " VNĐ");
+                totalValueTextView.setText((productCartAdapter.totalPrice() + productCartAdapter.shippingCost()) + " VNĐ");
+
             }
         });
+
         recyclerView.setAdapter(productCartAdapter);
     }
 
-    public List<ProductCart> getListItem(){
+    public List<ProductCart> getListItem() {
 
         List<ProductCart> itemList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-             int id = i;
-             String name = "Product name" + i;
-             String type = "Product";
-             double price = i*1000;
-             int amount = 1;
-             String imageUrl= "";
-            ProductCart productCart = new ProductCart( id,  name,  type,  price,  amount, imageUrl);
+            int id = i;
+            String name = "Product name" + i;
+            String type = "Product";
+            double price = i * 1000;
+            int amount = 1;
+            String imageUrl = "";
+            ProductCart productCart = new ProductCart(id, name, type, price, amount, imageUrl);
             itemList.add(productCart);
         }
         return itemList;

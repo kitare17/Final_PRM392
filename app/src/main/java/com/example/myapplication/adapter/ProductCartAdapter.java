@@ -43,7 +43,7 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
     public void onBindViewHolder(@NonNull ProductCartAdapter.ViewHolder holder, int position) {
         ProductCart product = productCarts.get(position);
         holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText(String.valueOf(product.getPrice()));
+        holder.priceTextView.setText(String.valueOf(product.getPrice())+" VNĐ");
         holder.amountTextView.setText(product.getAmount()+"");
         holder.imageView.setImageResource(R.drawable.pug);
 
