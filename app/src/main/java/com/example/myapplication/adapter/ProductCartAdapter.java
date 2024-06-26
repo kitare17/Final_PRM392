@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.database.CartRepository;
 import com.example.myapplication.model.ProductCart;
 
 import java.util.List;
@@ -48,18 +49,23 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         holder.imageView.setImageResource(R.drawable.pug);
 
         holder.increaseImageView.setOnClickListener(v->{
-            Toast.makeText(v.getContext(), "This is my Toast message! "+product.getName()+" "+product.getAmount(), Toast.LENGTH_LONG).show();
             product.setAmount(product.getAmount()+1);
+            CartRepository cartRepository = new CartRepository(v.getContext());
+            cartRepository.updateAmount(product.getId(), product.getAmount());
             holder.amountTextView.setText(product.getAmount()+"");
             notifyDataSetChanged();
         });
         holder.decreaseImageView.setOnClickListener(v->{
             if(product.getAmount()>1){
                 product.setAmount(product.getAmount()-1);
+                CartRepository cartRepository = new CartRepository(v.getContext());
+                cartRepository.updateAmount(product.getId(), product.getAmount());
                 holder.amountTextView.setText(product.getAmount()+"");
                 notifyDataSetChanged();
             }});
         holder.deleteImageView.setOnClickListener(v->{
+            CartRepository cartRepository = new CartRepository(v.getContext());
+            cartRepository.deleteItem(product.getId());
             productCarts.remove(position);
             notifyDataSetChanged();
         });

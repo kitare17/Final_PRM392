@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.ProductCartAdapter;
 import com.example.myapplication.adapter.RatingAdapter;
+import com.example.myapplication.database.CartRepository;
+import com.example.myapplication.database.UserInfoRepository;
 import com.example.myapplication.model.ProductCart;
 import com.example.myapplication.model.Rating;
 
@@ -37,7 +39,11 @@ public class CardDetail extends AppCompatActivity {
         shippingCostValueTextView = findViewById(R.id.shippingCostValueTextView);
         totalValueTextView = findViewById(R.id.totalValueTextView);
 
-        List<ProductCart> itemList = getListItem();
+
+        CartRepository cartRepository=new CartRepository(getApplicationContext());
+
+
+        List<ProductCart> itemList = cartRepository.listAll(1);;
         ProductCartAdapter productCartAdapter = new ProductCartAdapter(itemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

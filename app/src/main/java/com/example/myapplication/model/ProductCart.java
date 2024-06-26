@@ -67,4 +67,16 @@ public class ProductCart {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "ProductCart{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }
