@@ -178,103 +178,6 @@
             app:layout_constraintVertical_bias="0.732" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="377dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:background="#EFEFEF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366">
-
-        <ImageView
-            android:id="@+id/buttonDown2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="190dp"
-            android:rotation="180"
-            android:src="@drawable/slide_up"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.835" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/productImage2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/pug"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516"
-            app:strokeWidth="1dp" />
-
-        <TextView
-            android:id="@+id/product_title2"
-            android:layout_width="200dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="128dp"
-            android:text="Men's Tie-Dye T-Shirt Nike Sportswear"
-            android:textAlignment="viewStart"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.19" />
-
-        <TextView
-            android:id="@+id/priceTextView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="128dp"
-            android:text="$45 (-$4.00 Tax)"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516" />
-
-        <ImageView
-            android:id="@+id/buttonUp2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="128dp"
-            android:src="@drawable/slide_up"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.835" />
-
-        <TextView
-            android:id="@+id/amountTextView2"
-            android:layout_width="20dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="160dp"
-            android:text="1"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.818" />
-
-        <ImageView
-            android:id="@+id/buttonTrash2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/trash"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.845" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="40dp"
@@ -314,102 +217,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="377dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:background="#EFEFEF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164">
-
-        <TextView
-            android:id="@+id/priceTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="128dp"
-            android:text="$45 (-$4.00 Tax)"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516" />
-
-        <ImageView
-            android:id="@+id/buttonDown"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="190dp"
-            android:rotation="180"
-            android:src="@drawable/slide_up"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.835" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/shapeableImageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/pug"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516"
-            app:strokeWidth="1dp" />
-
-        <TextView
-            android:id="@+id/product_title"
-            android:layout_width="200dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="128dp"
-            android:text="Men's Tie-Dye T-Shirt Nike Sportswear"
-            android:textAlignment="viewStart"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.19" />
-
-        <ImageView
-            android:id="@+id/buttonUp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="128dp"
-            android:src="@drawable/slide_up"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.835" />
-
-        <TextView
-            android:id="@+id/amountTextView"
-            android:layout_width="20dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="160dp"
-            android:text="1"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.818" />
-
-        <ImageView
-            android:id="@+id/buttonTrash"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/trash"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.845" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="376dp"
         android:layout_height="75dp"
         android:layout_marginStart="16dp"
@@ -485,5 +292,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.732" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/product_cart_recycleView"
+        android:layout_width="379dp"
+        android:layout_height="228dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.892" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

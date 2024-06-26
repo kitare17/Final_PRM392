@@ -14,14 +14,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.model.UserInfo;
+import com.example.myapplication.view_model.UserViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
 
-
+    UserViewModel userViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +60,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Profile()).commit();
+            navigationView.setCheckedItem(R.id.nav_profile);
+        }
 
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Setting()).commit();
-//            navigationView.setCheckedItem(R.id.nav_settings);
-//        }
+
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUserInfo().observe(this, new Observer<UserInfo>() {
+            @Override
+            public void onChanged(UserInfo user) {
+                if (user != null) {
+                    headerTextView.setText(user.getFullname());
+                }
+            }
+        });
+
     }
 
     @Override
@@ -88,4 +103,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+    public UserViewModel getUserViewModel() {
+        return userViewModel;
+    }
+
+
 }
