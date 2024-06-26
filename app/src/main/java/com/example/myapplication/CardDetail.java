@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,18 +21,41 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardDetail extends AppCompatActivity {
+public class CardDetail extends AppCompatActivity  {
      RecyclerView recyclerView;
+     TextView subTotalValueTextView;
+     TextView shippingCostValueTextView;
+     TextView totalValueTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_card_detail);
         recyclerView = findViewById(R.id.product_cart_recycleView);
+        subTotalValueTextView = findViewById(R.id.subTotalValueTextView);
+        shippingCostValueTextView = findViewById(R.id.shippingCostValueTextView);
+        totalValueTextView = findViewById(R.id.totalValueTextView);
+
+
+
         List<ProductCart> itemList=getListItem();
         ProductCartAdapter productCartAdapter = new ProductCartAdapter(itemList);
-        recyclerView.setAdapter(productCartAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        subTotalValueTextView.setText(productCartAdapter.totalPrice()+"");
+        shippingCostValueTextView.setText(productCartAdapter.shippingCost()+"");
+        totalValueTextView.setText((productCartAdapter.totalPrice()+productCartAdapter.shippingCost())+"");
+
+        productCartAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                Toast.makeText(getApplicationContext(), "change! ", Toast.LENGTH_LONG).show();
+            }
+        });
+        recyclerView.setAdapter(productCartAdapter);
     }
 
     public List<ProductCart> getListItem(){

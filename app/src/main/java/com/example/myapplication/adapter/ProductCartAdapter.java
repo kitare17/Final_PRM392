@@ -44,12 +44,38 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         ProductCart product = productCarts.get(position);
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText(String.valueOf(product.getPrice()));
-        holder.amountTextView.setText(product.getAmount());
+        holder.amountTextView.setText(product.getAmount()+"");
         holder.imageView.setImageResource(R.drawable.pug);
 
         holder.increaseImageView.setOnClickListener(v->{
-            Toast.makeText(v.getContext(), "This is my Toast message!", Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), "This is my Toast message! "+product.getName()+" "+product.getAmount(), Toast.LENGTH_LONG).show();
+            product.setAmount(product.getAmount()+1);
+            holder.amountTextView.setText(product.getAmount()+"");
+            notifyDataSetChanged();
         });
+        holder.decreaseImageView.setOnClickListener(v->{
+            if(product.getAmount()>1){
+                product.setAmount(product.getAmount()-1);
+                holder.amountTextView.setText(product.getAmount()+"");
+                notifyDataSetChanged();
+            }});
+        holder.deleteImageView.setOnClickListener(v->{
+            productCarts.remove(position);
+            notifyDataSetChanged();
+        });
+    }
+
+    public double totalPrice(){
+        double totalPrice = 0;
+        for(ProductCart product:productCarts){
+            totalPrice += product.getPrice()*product.getAmount();
+        }
+        return totalPrice;
+    }
+
+    public double shippingCost(){
+        double shippingCost = 3000;
+       return shippingCost;
     }
 
     @Override
