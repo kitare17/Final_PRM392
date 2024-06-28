@@ -1,10 +1,18 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +27,7 @@ import com.example.myapplication.model.ProductTest;
 
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends Fragment {
     private ActivityHomeBinding binding;
     private RecyclerView productsRecyclerView;
     private ProductTestAdapter ProductTestAdapter;
@@ -29,15 +37,23 @@ public class HomeActivity extends AppCompatActivity {
     private List<Brand> brandsList;
     private ProductRepository productRepository;
 
+    private TextView viewAllProduct;
+
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Initialize the binding and set the content view to the root of the binding
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = ActivityHomeBinding.inflate(inflater, container, false);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // Initialize the ProductRepository
-        productRepository = new ProductRepository(this);
+        productRepository = new ProductRepository(getContext());
 
         // Initialize data
         initializeData();
@@ -54,15 +70,21 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(left, top, right, bottom);
             return WindowInsetsCompat.CONSUMED;
         });
+
+        viewAllProduct = (TextView) getView().findViewById(R.id.viewAllProduct);
+
+        viewAllProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShowItemActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void initializeData() {
-        // Initialize the brand list and add brands
-//        brandsList = new ArrayList<>();
-//        brandsList.add(new Brand(1, R.drawable.adidas_brand, "Adidas"));
-//        brandsList.add(new Brand(2, R.drawable.adidas_brand, "Nike"));
-//        brandsList.add(new Brand(3, R.drawable.adidas_brand, "Puma"));
-//        brandsList.add(new Brand(4, R.drawable.adidas_brand, "Reebok"));
 
         // Get all products from the repository
         productList = productRepository.getAllProduct();
@@ -72,19 +94,19 @@ public class HomeActivity extends AppCompatActivity {
     private void setupRecyclerViews() {
         // Setup RecyclerView for brands
         brandsRecyclerView = binding.brandsRecyclerView;
-        brandsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        brandsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         brandAdapter = new BrandAdapter(brandsList);
         brandsRecyclerView.setAdapter(brandAdapter);
 
         // Setup RecyclerView for products
         productsRecyclerView = binding.productRecyclerView;
-        productsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        productsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         ProductTestAdapter = new ProductTestAdapter(productList, getLayoutInflater());
         productsRecyclerView.setAdapter(ProductTestAdapter);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         productRepository.close();
         super.onDestroy();
     }

@@ -102,20 +102,30 @@ public class GetStarted extends AppCompatActivity {
                         if (!check){
                             Toast.makeText(this, "Not found "+googleId, Toast.LENGTH_SHORT).show();
                             userInfoRepository.register(userInfo);
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("fullname", fullname);
+                            editor.putString("email", email);
+                            editor.putString("avatar", avatar);
+                            editor.putInt("role", 0);
+                            editor.putString("googleId", googleId);
+                            editor.apply();
                         }
                         else {
 
                             Toast.makeText(this, "Welcome!!!", Toast.LENGTH_SHORT).show();
+                            UserInfo userByIdGoogle =   userInfoRepository.getUserByIdGoogle(googleId);
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("fullname", userByIdGoogle.getFullname());
+                            editor.putString("email", userByIdGoogle.getEmail());
+                            editor.putString("avatar", userByIdGoogle.getAvatar());
+                            editor.putInt("role", 0);
+                            editor.putString("googleId", googleId);
+                            editor.apply();
                         }
 
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("fullname", fullname);
-                        editor.putString("email", email);
-                        editor.putString("avatar", avatar);
-                        editor.putInt("role", 0);
-                        editor.putString("googleId", googleId);
-                        editor.apply();
+
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
 

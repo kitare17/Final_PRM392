@@ -43,6 +43,8 @@ public class Profile extends Fragment {
         fullnameEditText = (EditText) view.findViewById(R.id.fullnameEdit);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String googleId = sharedPreferences.getString("googleId", "googleId");
+        String fullname = sharedPreferences.getString("fullname", "fullname");
+        fullnameEditText.setText(fullname);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
 
