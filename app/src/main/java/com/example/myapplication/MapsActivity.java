@@ -36,7 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng shop = new LatLng(15.968958088446557, 108.26091275317685);
         mMap.addMarker(new MarkerOptions().position(shop).title("DeskDelights"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(shop));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(shop,17f));
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
