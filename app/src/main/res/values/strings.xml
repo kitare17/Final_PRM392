@@ -6,4 +6,10 @@
     <string name="view_all">View All</string>
     <string name="welcome_to_fly">Welcome to Flystore.</string>
     <string name="choose_brand">Choose Brand</string>
+    <string name="nike_club_fleece">Nike Club Fleece</string>
+    <string name="_120">$120</string>
+    <string name="size">Size</string>
+    <string name="size_guide">Size Guide</string>
+    <string name="description_text">The Nike Throwback Pullover Hoodie is made from premium French terry fabric that blends a performance feel with</string>
+    <string name="read_more_text">Read More..</string>
 </resources>
