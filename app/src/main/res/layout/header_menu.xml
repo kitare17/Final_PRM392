@@ -6,7 +6,7 @@
     android:layout_height="150dp">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView2"
+        android:id="@+id/avatarUser"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
@@ -29,7 +29,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/shapeableImageView2"
+        app:layout_constraintStart_toEndOf="@+id/avatarUser"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
