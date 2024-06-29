@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -10,8 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.ProductAdapter;
+import com.example.myapplication.adapter.ProductTestAdapter;
+import com.example.myapplication.database.ProductRepository;
 import com.example.myapplication.databinding.ActivityShowItemBinding;
 import com.example.myapplication.model.Product;
+import com.example.myapplication.model.ProductTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +24,9 @@ public class ShowItemActivity extends AppCompatActivity {
 
     private ActivityShowItemBinding binding;
     private RecyclerView recyclerView;
-    private ProductAdapter productAdapter;
-    private List<Product> productList;
+    private ProductTestAdapter productAdapter;
+    private List<ProductTest> productList;
+    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +39,11 @@ public class ShowItemActivity extends AppCompatActivity {
         recyclerView = binding.productRecyclerView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        // Initialize the product list and add products
-        productList = new ArrayList<>();
-        productList.add(new Product(1,"Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product(2,"Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product(3,"Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product(4,"Nike Sportswear Club", "Fleece", 99.9, R.drawable.product_example));
-        productList.add(new Product());
-
+        // Get all products
+        getAllProduct();
 
         // Initialize the adapter with the current context and product list
-        productAdapter = new ProductAdapter(productList, getLayoutInflater());
+        productAdapter = new ProductTestAdapter(productList, getLayoutInflater());
         recyclerView.setAdapter(productAdapter);
 
         // Set Window Insets
@@ -53,5 +52,16 @@ public class ShowItemActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return WindowInsetsCompat.CONSUMED;
         });
+
+        backButton=findViewById(R.id.backButton);
+        backButton.setOnClickListener(v->{
+            finish();
+        });
+    }
+
+    private void getAllProduct(){
+        ProductRepository productRepository = new ProductRepository(this);
+        productList = productRepository.getAllProduct();
+
     }
 }

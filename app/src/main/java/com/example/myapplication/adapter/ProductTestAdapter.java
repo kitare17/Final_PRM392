@@ -41,7 +41,7 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
         if (product != null) {
             holder.productName.setText(product.getName());
             holder.productType.setText(product.getType());
-            holder.productPrice.setText("$" + String.format("%.2f", product.getPrice()));
+            holder.productPrice.setText( String.format("%.0f", product.getPrice())+" VND");
             // Use Picasso to load image from URL
             Picasso.get()
                     .load(product.getImageUrl())
