@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -39,6 +40,7 @@ public class HomeActivity extends Fragment {
 
     private TextView viewAllProduct;
 
+    private AppCompatButton cart;
 
     @Nullable
     @Override
@@ -51,6 +53,15 @@ public class HomeActivity extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        cart= (AppCompatButton) getView().findViewById(R.id.cart);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CardDetail.class);
+                startActivity(intent);
+            }
+        });
 
         // Initialize the ProductRepository
         productRepository = new ProductRepository(getContext());
