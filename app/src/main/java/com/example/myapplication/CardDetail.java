@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class CardDetail extends AppCompatActivity {
 
     TextView addressTextView;
     TextView phoneAdressTextView;
+    ImageView buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,10 @@ public class CardDetail extends AppCompatActivity {
         addressTextView = findViewById(R.id.addressTextView);
         phoneAdressTextView = findViewById(R.id.phoneAdressTextView);
 
+        buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(v -> {
+            finish();
+        });
         constraintLayoutAddress.setOnClickListener(v -> {
             Intent intent = new Intent(CardDetail.this, AdressList.class);
             startActivity(intent);
