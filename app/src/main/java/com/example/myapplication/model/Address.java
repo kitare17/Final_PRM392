@@ -16,6 +16,12 @@ public class Address {
         this.phone = phone;
     }
 
+    public Address(int userId, String address, String phone) {
+        this.userId = userId;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public int getId() {
         return id;
     }

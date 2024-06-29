@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.database.AddressRepository;
+import com.example.myapplication.model.Address;
 import com.example.myapplication.model.Commune;
 import com.example.myapplication.model.District;
 import com.example.myapplication.model.Province;
@@ -36,6 +39,8 @@ public class AddAddress extends AppCompatActivity {
     EditText phoneText;
     AppCompatButton saveButton;
 
+    ImageView buttonBack;
+
     List<Province> provinces;
     List<District> districts;
     List<Commune> communes;
@@ -53,8 +58,13 @@ public class AddAddress extends AppCompatActivity {
         communeSpinner = findViewById(R.id.communeSpinner);
         addressDetail = findViewById(R.id.addressDetail);
         phoneText = findViewById(R.id.phoneDetail);
+        buttonBack = findViewById(R.id.buttonBack);
 
         loadProvince();
+
+        buttonBack.setOnClickListener(v -> {
+            finish();
+        });
 
 
         // provinceSpinner
@@ -107,7 +117,10 @@ public class AddAddress extends AppCompatActivity {
             String address = provinceSpinner.getSelectedItem().toString() + ", " + districtSpinner.getSelectedItem().toString() +
                     ", " + communeSpinner.getSelectedItem().toString() + ", " + addressDetail.getText().toString();
             String phone = phoneText.getText().toString();
-            Toast.makeText(getApplicationContext(), address + "\n" + phone, Toast.LENGTH_SHORT).show();
+            Address adress = new Address(1, address, phone);
+            AddressRepository addressRepository = new AddressRepository(getApplicationContext());
+            addressRepository.addAddress(adress);
+            finish();
         });
 
 

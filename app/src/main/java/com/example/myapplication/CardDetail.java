@@ -1,11 +1,15 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -29,6 +33,9 @@ public class CardDetail extends AppCompatActivity {
     TextView shippingCostValueTextView;
     TextView totalValueTextView;
 
+    TextView addressTextView;
+    TextView phoneAdressTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,14 @@ public class CardDetail extends AppCompatActivity {
         subTotalValueTextView = findViewById(R.id.subTotalValueTextView);
         shippingCostValueTextView = findViewById(R.id.shippingCostValueTextView);
         totalValueTextView = findViewById(R.id.totalValueTextView);
+        ConstraintLayout constraintLayoutAddress = findViewById(R.id.constraintLayoutAddress);
+        addressTextView = findViewById(R.id.addressTextView);
+        phoneAdressTextView = findViewById(R.id.phoneAdressTextView);
 
+        constraintLayoutAddress.setOnClickListener(v -> {
+            Intent intent = new Intent(CardDetail.this, AdressList.class);
+            startActivity(intent);
+                });
 
         CartRepository cartRepository=new CartRepository(getApplicationContext());
 
@@ -81,5 +95,15 @@ public class CardDetail extends AppCompatActivity {
             itemList.add(productCart);
         }
         return itemList;
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Address", Context.MODE_PRIVATE);
+        String address = sharedPreferences.getString("address", "Undefine");
+        String phone = sharedPreferences.getString("phone", "Undefine");
+        addressTextView.setText(address);
+        phoneAdressTextView.setText(phone);
+        super.onResume();
     }
 }

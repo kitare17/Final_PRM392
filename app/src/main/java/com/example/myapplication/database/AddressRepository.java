@@ -78,13 +78,23 @@ public class AddressRepository extends SQLiteOpenHelper {
         return list;
     }
 
-    public void deleteItem(int id) {
+    public void addAddress(Address address) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM CART WHERE item_id = "+id);
-    }
-    public void updateAmount(int id, int amount) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE CART SET amount = "+amount+" WHERE item_id = "+id);
+
+        ContentValues values = new ContentValues();
+
+
+        values.put("user_id", address.getUserId());
+        values.put("address", address.getAddress());
+        values.put("phone", address.getPhone());
+
+
+        long result = db.insert("ADDRESS_", null, values);
+        if (result == -1) {
+            Toast.makeText(context, "Add failed!!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Add successfully!!!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static void main(String[] args) {
