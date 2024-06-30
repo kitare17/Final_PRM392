@@ -112,7 +112,7 @@ public class HomeActivity extends Fragment {
         // Setup RecyclerView for products
         productsRecyclerView = binding.productRecyclerView;
         productsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        ProductTestAdapter = new ProductTestAdapter(productList, getLayoutInflater());
+        ProductTestAdapter = new ProductTestAdapter(getContext(),productList, getLayoutInflater());
         productsRecyclerView.setAdapter(ProductTestAdapter);
     }
 

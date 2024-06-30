@@ -1,18 +1,17 @@
 package com.example.myapplication.adapter;
 
-
-
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.myapplication.ProductDetailActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.model.Product;
 import com.example.myapplication.model.ProductTest;
 import com.squareup.picasso.Picasso;
 
@@ -22,10 +21,13 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
 
     private List<ProductTest> productList;
     private final LayoutInflater inflater;
+    private Context context;
 
-    public ProductTestAdapter(List<ProductTest> productList, LayoutInflater inflater) {
+
+    public ProductTestAdapter(Context context,List<ProductTest> productList, LayoutInflater inflater) {
         this.productList = productList;
         this.inflater = inflater;
+        this.context = context;
     }
 
     @NonNull
@@ -39,13 +41,23 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductTest product = productList.get(position);
         if (product != null) {
-            holder.productName.setText(product.getName());
+            holder.productName.setText(
+                    product.getName()
+            );
             holder.productType.setText(product.getType());
-            holder.productPrice.setText( String.format("%.0f", product.getPrice())+" VND");
+            holder.productPrice.setText( product.formatVND());
             // Use Picasso to load image from URL
             Picasso.get()
                     .load(product.getImageUrl())
                     .into(holder.productImage);
+
+            holder.productImage.setOnClickListener(v->{
+                Toast.makeText(context, product.getId()+"on click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
+                intent.putExtra("productId", product.getId()+"");
+                context.startActivity(intent);
+
+            });
         }
     }
 

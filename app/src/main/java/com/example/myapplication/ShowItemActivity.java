@@ -10,14 +10,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.adapter.ProductAdapter;
 import com.example.myapplication.adapter.ProductTestAdapter;
 import com.example.myapplication.database.ProductRepository;
 import com.example.myapplication.databinding.ActivityShowItemBinding;
-import com.example.myapplication.model.Product;
 import com.example.myapplication.model.ProductTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShowItemActivity extends AppCompatActivity {
@@ -43,7 +40,7 @@ public class ShowItemActivity extends AppCompatActivity {
         getAllProduct();
 
         // Initialize the adapter with the current context and product list
-        productAdapter = new ProductTestAdapter(productList, getLayoutInflater());
+        productAdapter = new ProductTestAdapter(getApplicationContext(),productList, getLayoutInflater());
         recyclerView.setAdapter(productAdapter);
 
         // Set Window Insets

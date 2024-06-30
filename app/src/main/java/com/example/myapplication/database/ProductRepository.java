@@ -125,6 +125,40 @@ public class ProductRepository extends SQLiteOpenHelper {
         cursor.close();
         return brandList;
     }
+    public ProductTest getProductById(int id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT p." + COLUMN_ID + ", p." + COLUMN_NAME + ", p." + COLUMN_DETAIL +
+                ", p." + COLUMN_PRICE + ", pi." + COLUMN_IMAGE_URL +
+                " FROM " + TABLE_NAME_PRODUCT + " p" +
+                " LEFT JOIN " + TABLE_NAME_PRODUCT_IMAGE + " pi" +
+                " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID +
+                " WHERE p." + COLUMN_ID + " = ?", new String[]{id+""});
+        ProductTest product=null;
+        if (cursor.moveToFirst()) {
+            do {
+
+                String name = cursor.getString(1);
+                String detail = cursor.getString(2);
+                double price = cursor.getDouble(3);
+                String imageUrl = cursor.getString(4); // Fetch image URL
+
+                 product = new ProductTest();
+                product.setId(id);
+                product.setName(name);
+                product.setProductDetail(detail);
+                product.setPrice(price);
+                product.setImageUrl(imageUrl); // Set image URL
+
+
+            } while (cursor.moveToNext());
+        }
+
+        return product;
+    }
+
+
+
     public static void main(String[] args) {
 
 
