@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Brand;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.BrandViewHol
     @Override
     public void onBindViewHolder(BrandViewHolder holder, int position) {
         Brand brand = brands.get(position);
-        holder.brandLogo.setImageResource(brand.getLogoResId());
+        Picasso.get().load(brand.getLogoResId()).into(holder.brandLogo);
         holder.brandName.setText(brand.getName());
     }
 

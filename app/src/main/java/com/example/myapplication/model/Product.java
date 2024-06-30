@@ -8,12 +8,20 @@ public class Product {
     private double price;
     private int  imageUrl;
 
+    private String productDetail;
+
     public Product(int id, String name, String type, double price, int imageUrl) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.price = price;
         this.imageUrl = imageUrl;
+    }
+
+    public Product(int imageUrl, String name, int price) {
+        this.imageUrl = imageUrl;
+        this.name = name;
+        this.price = price;
     }
     public Product() {
     }
@@ -54,7 +62,27 @@ public class Product {
         return imageUrl;
     }
 
+    public String getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(String productDetail) {
+        this.productDetail = productDetail;
+    }
+
     public void setImageUrl(int  imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", price=" + price +
+                ", imageUrl=" + imageUrl +
+                ", productDetail='" + productDetail + '\'' +
+                '}';
     }
 }

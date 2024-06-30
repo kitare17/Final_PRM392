@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -38,8 +39,20 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation("androidx.recyclerview:recyclerview:1.2.1") //fix
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
+
+    implementation("com.google.firebase:firebase-auth")
+
+    implementation("com.google.android.gms:play-services-auth:20.5.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.code.gson:gson:2.8.7")
+
+
+
 }
