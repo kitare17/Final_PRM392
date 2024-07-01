@@ -12,4 +12,10 @@
     <string name="close_slide_bar">Close slide bar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nike_club_fleece">Nike Club Fleece</string>
+    <string name="_120">$120</string>
+    <string name="size">Size</string>
+    <string name="size_guide">Size Guide</string>
+    <string name="description_text">The Nike Throwback Pullover Hoodie is made from premium French terry fabric that blends a performance feel with</string>
+    <string name="read_more_text">Read More..</string>
 </resources>

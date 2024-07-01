@@ -1,5 +1,9 @@
 package com.example.myapplication.model;
 
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class ProductTest {
 
     private int id;
@@ -87,5 +91,17 @@ public class ProductTest {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", productDetail='" + productDetail + '\'' +
                 '}';
+    }
+
+    public String formatVND(){
+        double amount = getPrice();
+
+        // Create a NumberFormat instance for currency formatting in Vietnamese locale
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
+        // Format the double value to currency format
+        String formattedAmount = currencyFormatter.format(amount);
+
+     return  formattedAmount;
     }
 }
