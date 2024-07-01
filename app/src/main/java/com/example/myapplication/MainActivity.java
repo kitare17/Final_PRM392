@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -147,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
             Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_SHORT).show();
         });
+        SharedPreferences settings = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        settings.edit().clear().commit();
+        finish();
     }
 
 }

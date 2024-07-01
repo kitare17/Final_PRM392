@@ -52,6 +52,16 @@ public class GetStarted extends AppCompatActivity {
         });
 
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String googleId = sharedPreferences.getString("googleId", null);
+        if (googleId!=null) {
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
     }
     private void googleSingIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -129,6 +139,7 @@ public class GetStarted extends AppCompatActivity {
 
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
+                        finish();
 
                     } else {
                         // If sign in fails, display a message to the user.

@@ -103,6 +103,7 @@ public class CardDetail extends AppCompatActivity {
             if (itemList.size()>0){
                 Intent intent = new Intent(CardDetail.this, OrderConfirmActivity.class);
                 startActivity(intent);
+                finish();
             }
             else {
                 Toast.makeText(getApplicationContext(),"Cart is empty",Toast.LENGTH_LONG).show();
