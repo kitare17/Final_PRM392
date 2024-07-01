@@ -2,8 +2,13 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +23,11 @@ import com.example.myapplication.database.ProductRepository;
 import com.example.myapplication.databinding.ActivityShowItemBinding;
 import com.example.myapplication.model.ProductTest;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class ShowItemActivity extends AppCompatActivity {
+public class ShowItemActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private ActivityShowItemBinding binding;
     private RecyclerView recyclerView;
@@ -30,6 +37,7 @@ public class ShowItemActivity extends AppCompatActivity {
     private SearchView searchView;
 
     final Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +53,7 @@ public class ShowItemActivity extends AppCompatActivity {
         getAllProduct();
 
         // Initialize the adapter with the current context and product list
-        productAdapter = new ProductTestAdapter(getApplicationContext(),productList, getLayoutInflater());
+        productAdapter = new ProductTestAdapter(getApplicationContext(), productList, getLayoutInflater());
         recyclerView.setAdapter(productAdapter);
 
         // Set Window Insets
@@ -55,9 +63,9 @@ public class ShowItemActivity extends AppCompatActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        backButton=findViewById(R.id.backButton);
+        backButton = findViewById(R.id.backButton);
 
-        backButton.setOnClickListener(v->{
+        backButton.setOnClickListener(v -> {
             finish();
         });
         searchView = findViewById(R.id.searchView);
@@ -81,18 +89,75 @@ public class ShowItemActivity extends AppCompatActivity {
         });
 
 
+
+
+        TextView btn = (TextView) findViewById(R.id.sort);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(ShowItemActivity.this, v);
+                popup.setOnMenuItemClickListener(ShowItemActivity.this);
+                popup.inflate(R.menu.menu_sort);
+                popup.show();
+            }
+        });
+
     }
 
-    private void getAllProduct(){
+    private void getAllProduct() {
         ProductRepository productRepository = new ProductRepository(this);
         productList = productRepository.getAllProduct();
 
     }
-    private void findProduct(String keyword){
+
+    private void findProduct(String keyword) {
         ProductRepository productRepository = new ProductRepository(this);
         productList = productRepository.searchProduct(keyword);
-        productAdapter = new ProductTestAdapter(this.getBaseContext(),productList, getLayoutInflater());
+        productAdapter = new ProductTestAdapter(this.getBaseContext(), productList, getLayoutInflater());
         recyclerView.setAdapter(productAdapter);
+    }
+
+//    public void showPopup(View v) {
+//        PopupMenu popup = new PopupMenu(getApplicationContext(), v);
+//        MenuInflater inflater = popup.getMenuInflater();
+//        inflater.inflate(R.menu.menu_sort, popup.getMenu());
+//        popup.show();
+//    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+
+        if (item.getItemId() == R.id.priceIn) {
+            Toast.makeText(this, "Price (Ascending)", Toast.LENGTH_SHORT).show();
+
+            Collections.sort(productList, new Comparator<ProductTest>(){
+                public int compare(ProductTest obj1, ProductTest obj2) {
+                    // ## Ascending order
+                     return Double.valueOf(obj1.getPrice()).compareTo(Double.valueOf(obj2.getPrice()));
+                }
+
+            });
+            productAdapter = new ProductTestAdapter(this.getBaseContext(), productList, getLayoutInflater());
+            recyclerView.setAdapter(productAdapter);
+            return true;
+        } else if (item.getItemId() == R.id.priceDe) {
+            Toast.makeText(this, "Price (Ascending)", Toast.LENGTH_SHORT).show();
+
+            Collections.sort(productList, new Comparator<ProductTest>(){
+                public int compare(ProductTest obj1, ProductTest obj2) {
+                    // ## Ascending order
+                    return Double.valueOf(obj2.getPrice()).compareTo(Double.valueOf(obj1.getPrice()));
+                }
+
+            });
+            productAdapter = new ProductTestAdapter(this.getBaseContext(), productList, getLayoutInflater());
+            recyclerView.setAdapter(productAdapter);
+            return true;
+        }
+
+
+
+        return true;
     }
 
 
