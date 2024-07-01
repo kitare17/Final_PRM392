@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -24,7 +27,9 @@ public class ShowItemActivity extends AppCompatActivity {
     private ProductTestAdapter productAdapter;
     private List<ProductTest> productList;
     private ImageView backButton;
+    private SearchView searchView;
 
+    final Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,7 @@ public class ShowItemActivity extends AppCompatActivity {
         getAllProduct();
 
         // Initialize the adapter with the current context and product list
-        productAdapter = new ProductTestAdapter(this.getBaseContext(),productList, getLayoutInflater());
+        productAdapter = new ProductTestAdapter(getApplicationContext(),productList, getLayoutInflater());
         recyclerView.setAdapter(productAdapter);
 
         // Set Window Insets
@@ -51,9 +56,31 @@ public class ShowItemActivity extends AppCompatActivity {
         });
 
         backButton=findViewById(R.id.backButton);
+
         backButton.setOnClickListener(v->{
             finish();
         });
+        searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            public boolean onQueryTextChange(final String query) {
+                handler.removeCallbacksAndMessages(null);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        findProduct(query);
+                    }
+                }, 400);
+                return false;
+            }
+        });
+
+
     }
 
     private void getAllProduct(){
@@ -61,4 +88,12 @@ public class ShowItemActivity extends AppCompatActivity {
         productList = productRepository.getAllProduct();
 
     }
+    private void findProduct(String keyword){
+        ProductRepository productRepository = new ProductRepository(this);
+        productList = productRepository.searchProduct(keyword);
+        productAdapter = new ProductTestAdapter(this.getBaseContext(),productList, getLayoutInflater());
+        recyclerView.setAdapter(productAdapter);
+    }
+
+
 }

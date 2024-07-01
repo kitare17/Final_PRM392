@@ -108,6 +108,37 @@ public class ProductRepository extends SQLiteOpenHelper {
         cursor.close();
         return listProduct;
     }
+    public List<ProductTest> searchProduct(String keyword) {
+        List<ProductTest> listProduct = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT p." + COLUMN_ID + ", p." + COLUMN_NAME + ", p." + COLUMN_DETAIL +
+                ", p." + COLUMN_PRICE + ", pi." + COLUMN_IMAGE_URL +
+                " FROM " + TABLE_NAME_PRODUCT + " p" +
+                " LEFT JOIN " + TABLE_NAME_PRODUCT_IMAGE + " pi" +
+                " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID+
+                " WHERE p.product_name LIKE '%"+keyword+"%'",null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String detail = cursor.getString(2);
+                double price = cursor.getDouble(3);
+                String imageUrl = cursor.getString(4); // Fetch image URL
+
+                ProductTest product = new ProductTest();
+                product.setId(id);
+                product.setName(name);
+                product.setProductDetail(detail);
+                product.setPrice(price);
+                product.setImageUrl(imageUrl); // Set image URL
+
+                listProduct.add(product);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return listProduct;
+    }
 
     public List<Brand> getAllBrands() {
         List<Brand> brandList = new ArrayList<>();
