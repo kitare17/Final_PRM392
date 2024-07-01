@@ -104,6 +104,7 @@ public class GetStarted extends AppCompatActivity {
                             userInfoRepository.register(userInfo);
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+
                             editor.putString("fullname", fullname);
                             editor.putString("email", email);
                             editor.putString("avatar", avatar);

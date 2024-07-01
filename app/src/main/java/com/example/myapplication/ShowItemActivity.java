@@ -40,7 +40,7 @@ public class ShowItemActivity extends AppCompatActivity {
         getAllProduct();
 
         // Initialize the adapter with the current context and product list
-        productAdapter = new ProductTestAdapter(getApplicationContext(),productList, getLayoutInflater());
+        productAdapter = new ProductTestAdapter(this.getBaseContext(),productList, getLayoutInflater());
         recyclerView.setAdapter(productAdapter);
 
         // Set Window Insets

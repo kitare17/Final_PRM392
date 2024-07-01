@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.database.CartRepository;
 import com.example.myapplication.model.ProductCart;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,7 +47,12 @@ public class ProductCartAdapter extends RecyclerView.Adapter<ProductCartAdapter.
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText(String.valueOf(product.getPrice())+" VNĐ");
         holder.amountTextView.setText(product.getAmount()+"");
-        holder.imageView.setImageResource(R.drawable.pug);
+        Picasso.get()
+                .load(product.getImageUrl())
+                .into(holder.imageView);
+
+
+
 
         holder.increaseImageView.setOnClickListener(v->{
             product.setAmount(product.getAmount()+1);
