@@ -58,7 +58,7 @@ public class Profile extends Fragment {
                 userInfo.setFullname(fullname);
                 userViewModel.setUserInfo(userInfo);
                 sharedPreferences.edit().putString("fullname", fullname).apply();
-
+           Toast.makeText(getContext(),"Your profile is saved",Toast.LENGTH_SHORT).show();
 
             }
         });

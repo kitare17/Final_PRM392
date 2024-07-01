@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,6 +24,7 @@ import com.example.myapplication.database.CartRepository;
 import com.example.myapplication.database.UserInfoRepository;
 import com.example.myapplication.model.ProductCart;
 import com.example.myapplication.model.Rating;
+import com.example.myapplication.model.UserInfo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class CardDetail extends AppCompatActivity {
     TextView phoneAdressTextView;
     ImageView buttonBack;
 
+    AppCompatButton addCardPayment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,9 @@ public class CardDetail extends AppCompatActivity {
         ConstraintLayout constraintLayoutAddress = findViewById(R.id.constraintLayoutAddress);
         addressTextView = findViewById(R.id.addressTextView);
         phoneAdressTextView = findViewById(R.id.phoneAdressTextView);
+        addCardPayment = findViewById(R.id.addCardPayment);
+
+
 
         buttonBack = findViewById(R.id.buttonBack);
         buttonBack.setOnClickListener(v -> {
@@ -61,9 +67,15 @@ public class CardDetail extends AppCompatActivity {
                 });
 
         CartRepository cartRepository=new CartRepository(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String googleId = sharedPreferences.getString("googleId", "googleId");
+
+        UserInfoRepository userInfoRepository = new UserInfoRepository(getApplicationContext());
+        UserInfo userInfo = userInfoRepository.getUserByIdGoogle(googleId);
 
 
-        List<ProductCart> itemList = cartRepository.listAll(1);;
+
+        List<ProductCart> itemList = cartRepository.listAll(Integer.parseInt(userInfo.getUserId()));;
         ProductCartAdapter productCartAdapter = new ProductCartAdapter(itemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -84,24 +96,22 @@ public class CardDetail extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(productCartAdapter);
+
+
+
+        addCardPayment.setOnClickListener(v -> {
+            if (itemList.size()>0){
+                Intent intent = new Intent(CardDetail.this, OrderConfirmActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"Cart is empty",Toast.LENGTH_LONG).show();
+            }
+
+        });
     }
 
-    public List<ProductCart> getListItem() {
-
-        List<ProductCart> itemList = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            int id = i;
-            String name = "Product name" + i;
-            String type = "Product";
-            double price = i * 1000;
-            int amount = 1;
-            String imageUrl = "";
-            ProductCart productCart = new ProductCart(id, name, type, price, amount, imageUrl);
-            itemList.add(productCart);
-        }
-        return itemList;
-    }
 
     @Override
     protected void onResume() {

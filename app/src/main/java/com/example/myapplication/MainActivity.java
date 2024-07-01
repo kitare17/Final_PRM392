@@ -1,8 +1,14 @@
 package com.example.myapplication;
+
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -13,12 +19,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.model.UserInfo;
+import com.example.myapplication.notification.MyApplication;
 import com.example.myapplication.view_model.UserViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,6 +38,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
@@ -36,11 +48,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ShapeableImageView avatarUser;
     UserViewModel userViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+
+        sendNotification();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("DeskDelights Shop");
@@ -61,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String avatar = sharedPreferences.getString("avatar", "avatar");
 
 
-
-
         View headerView = navigationView.getHeaderView(0); // 0-indexed
 
 // Find the TextView inside the header layout
@@ -72,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .load(avatar)
                 .into(avatarUser);
         headerTextView.setText(fullname);
-
 
 
 // set delfaut view
@@ -99,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleSignInClient= GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
     }
@@ -110,13 +124,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeActivity()).commit();
         } else if (item.getItemId() == R.id.nav_profile) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Profile()).commit();
-        }
-        else if (item.getItemId() == R.id.nav_logout) {
+        } else if (item.getItemId() == R.id.nav_logout) {
             signOut();
             Intent intent = new Intent(MainActivity.this, GetStarted.class);
             startActivity(intent);
-        }
-        else if (item.getItemId() == R.id.nav_maps) {
+        } else if (item.getItemId() == R.id.nav_maps) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
             startActivity(intent);
         }
@@ -139,14 +151,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
     public UserViewModel getUserViewModel() {
         return userViewModel;
     }
+
     private void signOut() {
         auth.signOut();
         mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
             Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_SHORT).show();
         });
+        SharedPreferences settings = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        settings.edit().clear().commit();
+        finish();
     }
+
+
+
+    private void sendNotification() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon);
+        Notification notification = new NotificationCompat.Builder(this, MyApplication.CHANNEL_ID)
+                .setContentTitle("Welcome to DeskDelights")
+                .setContentText("Check your cart to buy your favorite products")
+                .setSmallIcon(R.drawable.notification_icon)
+                .setLargeIcon(bitmap)
+                .build();
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(getNotificationId(), notification);
+
+
+
+    }
+    private int getNotificationId() {
+        return (int)new Date().getTime();
+    }
+
 
 }

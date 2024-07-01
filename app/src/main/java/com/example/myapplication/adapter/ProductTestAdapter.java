@@ -52,8 +52,10 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
                     .into(holder.productImage);
 
             holder.productImage.setOnClickListener(v->{
-                Toast.makeText(context, product.getId()+"on click", Toast.LENGTH_SHORT).show();
+
+
                 Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("productId", product.getId()+"");
                 context.startActivity(intent);
 
