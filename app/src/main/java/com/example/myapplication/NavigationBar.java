@@ -43,6 +43,6 @@ public class NavigationBar extends AppCompatActivity {
         });
     }
 
-    }
+}
 
 

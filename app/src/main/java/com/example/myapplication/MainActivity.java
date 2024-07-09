@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.model.Order;
 import com.example.myapplication.model.UserInfo;
 import com.example.myapplication.view_model.UserViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 // set delfaut view
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeActivity()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_bottom_nav, new NavbarFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
@@ -118,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (item.getItemId() == R.id.nav_maps) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_order) {
+            Intent intent = new Intent(MainActivity.this, OrderHistory.class);
             startActivity(intent);
         }
 //        } else if (item.getItemId() == R.id.nav_logout) {

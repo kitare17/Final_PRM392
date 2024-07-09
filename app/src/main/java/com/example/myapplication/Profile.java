@@ -24,7 +24,6 @@ public class Profile extends Fragment {
 
     AppCompatButton saveBtn;
     EditText fullnameEditText;
-
     UserViewModel userViewModel;
 
 
@@ -58,8 +57,6 @@ public class Profile extends Fragment {
                 userInfo.setFullname(fullname);
                 userViewModel.setUserInfo(userInfo);
                 sharedPreferences.edit().putString("fullname", fullname).apply();
-
-
             }
         });
 

@@ -8,8 +8,6 @@ import com.example.myapplication.model.UserInfo;
 public class UserViewModel extends ViewModel{
     private MutableLiveData<UserInfo> userInfo=userInfo = new MutableLiveData<>();
 
-
-
     public LiveData<UserInfo> getUserInfo() {
         return userInfo;
     }
@@ -17,6 +15,5 @@ public class UserViewModel extends ViewModel{
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo.setValue(userInfo);
     }
-
 
 }

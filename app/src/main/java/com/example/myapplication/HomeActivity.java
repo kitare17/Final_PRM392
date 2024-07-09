@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.BrandAdapter;
+import com.example.myapplication.adapter.ProductAdapter;
 import com.example.myapplication.adapter.ProductTestAdapter;
 import com.example.myapplication.database.ProductRepository;
 import com.example.myapplication.databinding.ActivityHomeBinding;
@@ -28,7 +29,7 @@ import com.example.myapplication.model.ProductTest;
 
 import java.util.List;
 
-public class HomeActivity extends Fragment {
+public class HomeActivity extends Fragment implements ProductTestAdapter.OnHeartClickListener, ProductTestAdapter.OnItemClickListener {
     private ActivityHomeBinding binding;
     private RecyclerView productsRecyclerView;
     private ProductTestAdapter ProductTestAdapter;
@@ -113,7 +114,25 @@ public class HomeActivity extends Fragment {
         productsRecyclerView = binding.productRecyclerView;
         productsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         ProductTestAdapter = new ProductTestAdapter(productList, getLayoutInflater());
+        ProductTestAdapter.setOnItemClickListener(this);
+        ProductTestAdapter.setOnHeartClickListener(this);
         productsRecyclerView.setAdapter(ProductTestAdapter);
+    }
+
+    @Override
+    public void onItemClick(ProductTest product) {
+        Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+        intent.putExtra("product_id", product.getId());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onHeartClick(ProductTest product, boolean isFavorite) {
+        if (isFavorite) {
+            productRepository.insertWishList(product);
+        } else {
+            productRepository.deleteWish(product.getId());
+        }
     }
 
     @Override

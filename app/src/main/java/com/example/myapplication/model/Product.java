@@ -1,16 +1,21 @@
 package com.example.myapplication.model;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
 public class Product {
 
     private int id;
     private String name;
     private String type;
     private double price;
-    private int  imageUrl;
-
+    private String imageUrl;
     private String productDetail;
+    private String date;
+    private boolean favorite;
 
-    public Product(int id, String name, String type, double price, int imageUrl) {
+    public Product(int id, String name, String type, double price, String imageUrl) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -18,7 +23,16 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public Product(int imageUrl, String name, int price) {
+    public Product(int id, String name, String type, double price, String imageUrl, String date) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.date = date;
+    }
+
+    public Product(String imageUrl, String name, int price) {
         this.imageUrl = imageUrl;
         this.name = name;
         this.price = price;
@@ -58,7 +72,7 @@ public class Product {
         this.price = price;
     }
 
-    public int  getImageUrl() {
+    public String  getImageUrl() {
         return imageUrl;
     }
 
@@ -70,8 +84,26 @@ public class Product {
         this.productDetail = productDetail;
     }
 
-    public void setImageUrl(int  imageUrl) {
+    public void setImageUrl(String  imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getDate() {
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return sdf.format(today);
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     @Override

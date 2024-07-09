@@ -1,5 +1,8 @@
 package com.example.myapplication.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ProductTest {
 
     private int id;
@@ -7,8 +10,9 @@ public class ProductTest {
     private String type;
     private double price;
     private String imageUrl;  // Changed from int to String
-
+    private String date;
     private String productDetail;
+    private boolean favorite;
 
     public ProductTest(int id, String name, String type, double price, String imageUrl) {
         this.id = id;
@@ -75,6 +79,24 @@ public class ProductTest {
 
     public void setProductDetail(String productDetail) {
         this.productDetail = productDetail;
+    }
+
+    public String getDate() {
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return sdf.format(today);
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.myapplication.adapter;
 
 
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,24 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
 
     private List<ProductTest> productList;
     private final LayoutInflater inflater;
+    private OnItemClickListener onItemClickListener;
+    private OnHeartClickListener onHeartClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(ProductTest product);
+    }
+
+    public interface OnHeartClickListener {
+        void onHeartClick(ProductTest product, boolean isFavorite);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnHeartClickListener(OnHeartClickListener onHeartClickListener) {
+        this.onHeartClickListener = onHeartClickListener;
+    }
 
     public ProductTestAdapter(List<ProductTest> productList, LayoutInflater inflater) {
         this.productList = productList;
@@ -47,6 +66,7 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
                     .load(product.getImageUrl())
                     .into(holder.productImage);
         }
+        holder.bind(product);
     }
 
     @Override
@@ -54,8 +74,8 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
         return productList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView productImage;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView productImage, heartIcon;
         TextView productName;
         TextView productPrice;
         TextView productType;
@@ -66,6 +86,38 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
             productName = itemView.findViewById(R.id.productName);
             productPrice = itemView.findViewById(R.id.productPrice);
             productType = itemView.findViewById(R.id.productType);
+            heartIcon = itemView.findViewById(R.id.ic_heart);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onItemClick(productList.get(position));
+                        }
+                    }
+                }
+            });
+
+            heartIcon.setOnClickListener(v -> {
+                if (onHeartClickListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        ProductTest product = productList.get(position);
+                        boolean isFavorite = product.isFavorite();
+                        onHeartClickListener.onHeartClick(product, !isFavorite);
+                        product.setFavorite(!isFavorite);
+                        notifyItemChanged(position);
+                    }
+                }
+            });
+        }
+
+        public void bind(ProductTest product) {
+            productName.setText(product.getName());
+            productPrice.setText(String.valueOf(product.getPrice()));
+            heartIcon.setColorFilter(product.isFavorite() ? Color.RED : Color.GRAY);
         }
     }
 }
