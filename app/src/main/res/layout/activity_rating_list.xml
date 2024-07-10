@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".RatingList">
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/back_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="28dp"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listitemrating"
+        app:layout_constraintTop_toBottomOf="@+id/averageStarShow"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/averageStar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
-        android:id="@+id/listitemrating"
+        android:id="@+id/averageStarShow"
         style="@android:attr/ratingBarStyleSmall"
         android:layout_width="240dp"
         android:layout_height="43dp"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button3"
+        android:id="@+id/addReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"

@@ -10,6 +10,7 @@ public class Rating {
     private LocalDateTime ratingDate;
     private String detail;
     private int image;
+    private String imageUrl;
 
 
 
@@ -19,6 +20,20 @@ public class Rating {
         this.ratingDate = ratingDate;
         this.detail = detail;
         this.image = image;
+    }
+
+    public Rating(String fullname, Double rating, LocalDateTime ratingDate, String detail, String imageUrl) {
+        this.fullname = fullname;
+        this.rating = rating;
+        this.ratingDate = ratingDate;
+        this.detail = detail;
+        this.imageUrl = imageUrl;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getFullname() {
@@ -68,7 +83,7 @@ public class Rating {
                 ", rating=" + rating +
                 ", ratingDate=" + ratingDate +
                 ", detail='" + detail + '\'' +
-                ", image=" + image +
+                ", image=" + imageUrl +
                 '}';
     }
 }

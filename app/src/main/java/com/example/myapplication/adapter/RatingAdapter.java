@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Rating;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -56,23 +59,13 @@ public class RatingAdapter extends
         TextView countStar = holder.countStar;
         RatingBar ratingStar = holder.ratingStar;
         TextView detailText = holder.detailText;
-
+        ImageView avatarReview = holder.avatarReview;
         timeText.setText(contact.getRatingDate().getMonth() + ", " + contact.getRatingDate().getYear());
         fullnameText.setText(contact.getFullname());
         countStar.setText(contact.getRating().toString());
         ratingStar.setRating(contact.getRating().floatValue());
         detailText.setText(contact.getDetail());
-
-
-
-        // Set item views based on your views and data model
-//        TextView textView = holder.nameTextView;
-//        textView.setText(contact.getName());
-//        Button button = holder.messageButton;
-//        button.setText(contact.isOnline() ? "Message" : "Offline");
-//        button.setEnabled(contact.isOnline());
-
-
+        Picasso.get().load(contact.getImageUrl()).into(avatarReview);
     }
 
     @Override
@@ -92,6 +85,7 @@ public class RatingAdapter extends
         public RatingBar ratingStar;
         public TextView detailText;
 
+        public ImageView avatarReview;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -105,6 +99,7 @@ public class RatingAdapter extends
             detailText = (TextView) itemView.findViewById(R.id.detailText);
             countStar = (TextView) itemView.findViewById(R.id.countStar);
             ratingStar = (RatingBar) itemView.findViewById(R.id.ratingStar);
+            avatarReview = (ImageView) itemView.findViewById(R.id.avatarReview1);
 
         }
     }

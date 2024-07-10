@@ -6,7 +6,8 @@
     android:layout_height="160dp">
 
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
+        android:id="@+id/avatarReview1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
