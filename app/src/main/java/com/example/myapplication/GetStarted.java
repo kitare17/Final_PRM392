@@ -115,11 +115,14 @@ public class GetStarted extends AppCompatActivity {
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
+
                             editor.putString("fullname", fullname);
                             editor.putString("email", email);
                             editor.putString("avatar", avatar);
                             editor.putInt("role", 0);
                             editor.putString("googleId", googleId);
+                            UserInfo userByIdGoogle =   userInfoRepository.getUserByIdGoogle(googleId);
+                            editor.putString("userId", userByIdGoogle.getUserId());
                             editor.apply();
                         }
                         else {
@@ -128,6 +131,7 @@ public class GetStarted extends AppCompatActivity {
                             UserInfo userByIdGoogle =   userInfoRepository.getUserByIdGoogle(googleId);
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("userId", userByIdGoogle.getUserId());
                             editor.putString("fullname", userByIdGoogle.getFullname());
                             editor.putString("email", userByIdGoogle.getEmail());
                             editor.putString("avatar", userByIdGoogle.getAvatar());
