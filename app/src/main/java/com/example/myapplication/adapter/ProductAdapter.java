@@ -1,8 +1,10 @@
 package com.example.myapplication.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Product;
+import com.example.myapplication.model.ProductTest;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,7 +43,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.productName.setText(product.getName());
             holder.productType.setText(product.getType());
             holder.productPrice.setText("$" + String.format("%.2f", product.getPrice()));
-            holder.productImage.setImageResource(product.getImageUrl());
+            Picasso.get()
+                    .load(product.getImageUrl())
+                    .into(holder.productImage);
         }
     }
 
@@ -50,11 +56,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     // ViewHolder inner class
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView productImage;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView productImage, heartIcon;
         TextView productName;
         TextView productPrice;
         TextView productType;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.productImage);

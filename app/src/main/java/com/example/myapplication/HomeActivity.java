@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.adapter.BrandAdapter;
+import com.example.myapplication.adapter.ProductAdapter;
 import com.example.myapplication.adapter.ProductTestAdapter;
 import com.example.myapplication.database.ProductRepository;
 import com.example.myapplication.databinding.ActivityHomeBinding;
@@ -28,7 +29,7 @@ import com.example.myapplication.model.ProductTest;
 
 import java.util.List;
 
-public class HomeActivity extends Fragment {
+public class HomeActivity extends Fragment  {
     private ActivityHomeBinding binding;
     private RecyclerView productsRecyclerView;
     private ProductTestAdapter ProductTestAdapter;
@@ -112,9 +113,12 @@ public class HomeActivity extends Fragment {
         // Setup RecyclerView for products
         productsRecyclerView = binding.productRecyclerView;
         productsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        ProductTestAdapter = new ProductTestAdapter(getContext(),productList, getLayoutInflater());
+        ProductTestAdapter = new ProductTestAdapter(getContext(), productList, getLayoutInflater());
+
         productsRecyclerView.setAdapter(ProductTestAdapter);
     }
+
+
 
     @Override
     public void onDestroy() {
