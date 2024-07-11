@@ -59,6 +59,7 @@
         tools:text="$99" />
 
     <ImageButton
+        android:id="@+id/ic_heart"
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_marginTop="16dp"

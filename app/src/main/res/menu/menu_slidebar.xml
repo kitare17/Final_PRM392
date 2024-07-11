@@ -26,6 +26,10 @@
             android:id="@+id/nav_maps"
             android:icon="@drawable/baseline_map_24"
             android:title="Map" />
+        <item
+            android:id="@+id/nav_wish_list"
+            android:icon="@drawable/heart"
+            android:title="Wish List" />
 
 
     </group>

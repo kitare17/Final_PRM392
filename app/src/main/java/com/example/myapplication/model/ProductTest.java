@@ -2,6 +2,8 @@ package com.example.myapplication.model;
 
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class ProductTest {
@@ -11,15 +13,17 @@ public class ProductTest {
     private String type;
     private double price;
     private String imageUrl;  // Changed from int to String
-
+    private String date;
     private String productDetail;
+    private boolean favorite;
 
-    public ProductTest(int id, String name, String type, double price, String imageUrl) {
+    public ProductTest(int id, String name, String type, double price, String imageUrl, String date) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.date = date;
     }
 
     public ProductTest(String imageUrl, String name, int price) {
@@ -79,6 +83,24 @@ public class ProductTest {
 
     public void setProductDetail(String productDetail) {
         this.productDetail = productDetail;
+    }
+
+    public String getDate() {
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return sdf.format(today);
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     @Override

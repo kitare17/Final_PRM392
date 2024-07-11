@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (item.getItemId() == R.id.nav_maps) {
             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
             startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_wish_list) {
+            Intent intent = new Intent(MainActivity.this, Wishlist.class);
+            startActivity(intent);
         }
 //        } else if (item.getItemId() == R.id.nav_logout) {
 //            Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
