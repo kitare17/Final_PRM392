@@ -54,6 +54,12 @@
             android:name=".GetStarted"
             android:exported="true"></activity>
         <activity
+            android:name=".RatingList"
+            android:exported="true"></activity>
+        <activity
+            android:name=".AddReviewActivity"
+            android:exported="true"></activity>
+        <activity
             android:name=".Landing"
             android:label="DeskDelights"
             android:exported="true">
