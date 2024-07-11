@@ -121,6 +121,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         //add wishlist
         addWishListButton.setOnClickListener(v->{
             Toast.makeText(getApplicationContext(),"Add to wishlist",Toast.LENGTH_SHORT).show();
+            ProductRepository productRepository1 = new ProductRepository(getApplicationContext());
+            productRepository1.insertWishList(Integer.parseInt(productId),Integer.parseInt(userInfo.getUserId()));
         });
 
 
@@ -162,6 +164,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             CartRepository cartRepository = new CartRepository(getApplicationContext());
             cartRepository.addToCart(product.getId()+"",1,Integer.parseInt(userInfo.getUserId()));
+
 
         });
         cartButton.setOnClickListener(v->{

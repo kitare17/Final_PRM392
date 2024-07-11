@@ -29,7 +29,7 @@ import com.example.myapplication.model.ProductTest;
 
 import java.util.List;
 
-public class HomeActivity extends Fragment implements ProductTestAdapter.OnHeartClickListener, ProductTestAdapter.OnItemClickListener {
+public class HomeActivity extends Fragment  {
     private ActivityHomeBinding binding;
     private RecyclerView productsRecyclerView;
     private ProductTestAdapter ProductTestAdapter;
@@ -114,26 +114,11 @@ public class HomeActivity extends Fragment implements ProductTestAdapter.OnHeart
         productsRecyclerView = binding.productRecyclerView;
         productsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         ProductTestAdapter = new ProductTestAdapter(getContext(), productList, getLayoutInflater());
-        ProductTestAdapter.setOnItemClickListener(this);
-        ProductTestAdapter.setOnHeartClickListener(this);
+
         productsRecyclerView.setAdapter(ProductTestAdapter);
     }
 
-    @Override
-    public void onItemClick(ProductTest product) {
-        Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
-        intent.putExtra("product_id", product.getId());
-        startActivity(intent);
-    }
 
-    @Override
-    public void onHeartClick(ProductTest product, boolean isFavorite) {
-        if (isFavorite) {
-            productRepository.insertWishList(product);
-        } else {
-            productRepository.deleteWish(product.getId());
-        }
-    }
 
     @Override
     public void onDestroy() {

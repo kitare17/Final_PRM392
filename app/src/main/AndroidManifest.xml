@@ -60,6 +60,12 @@
             android:name=".AddReviewActivity"
             android:exported="true"></activity>
         <activity
+            android:name=".Wishlist"
+            android:exported="true"></activity>
+        <activity
+            android:name=".OrderHistory"
+            android:exported="true"></activity>
+        <activity
             android:name=".Landing"
             android:label="DeskDelights"
             android:exported="true">

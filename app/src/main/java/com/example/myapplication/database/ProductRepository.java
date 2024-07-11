@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -50,6 +51,7 @@ public class ProductRepository extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
@@ -80,7 +82,6 @@ public class ProductRepository extends SQLiteOpenHelper {
 //    }
 
 
-
     public List<ProductTest> getAllProduct() {
         List<ProductTest> listProduct = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -88,7 +89,7 @@ public class ProductRepository extends SQLiteOpenHelper {
                 ", p." + COLUMN_PRICE + ", pi." + COLUMN_IMAGE_URL +
                 " FROM " + TABLE_NAME_PRODUCT + " p" +
                 " LEFT JOIN " + TABLE_NAME_PRODUCT_IMAGE + " pi" +
-                " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID,null);
+                " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -111,6 +112,7 @@ public class ProductRepository extends SQLiteOpenHelper {
         cursor.close();
         return listProduct;
     }
+
     public List<ProductTest> searchProduct(String keyword) {
         List<ProductTest> listProduct = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -118,8 +120,8 @@ public class ProductRepository extends SQLiteOpenHelper {
                 ", p." + COLUMN_PRICE + ", pi." + COLUMN_IMAGE_URL +
                 " FROM " + TABLE_NAME_PRODUCT + " p" +
                 " LEFT JOIN " + TABLE_NAME_PRODUCT_IMAGE + " pi" +
-                " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID+
-                " WHERE p.product_name LIKE '%"+keyword+"%'",null);
+                " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID +
+                " WHERE p.product_name LIKE '%" + keyword + "%'", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -159,6 +161,7 @@ public class ProductRepository extends SQLiteOpenHelper {
         cursor.close();
         return brandList;
     }
+
     public ProductTest getProductById(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -167,8 +170,8 @@ public class ProductRepository extends SQLiteOpenHelper {
                 " FROM " + TABLE_NAME_PRODUCT + " p" +
                 " LEFT JOIN " + TABLE_NAME_PRODUCT_IMAGE + " pi" +
                 " ON p." + COLUMN_ID + " = pi." + COLUMN_PRODUCT_ID +
-                " WHERE p." + COLUMN_ID + " = ?", new String[]{id+""});
-        ProductTest product=null;
+                " WHERE p." + COLUMN_ID + " = ?", new String[]{id + ""});
+        ProductTest product = null;
         if (cursor.moveToFirst()) {
             do {
 
@@ -177,7 +180,7 @@ public class ProductRepository extends SQLiteOpenHelper {
                 double price = cursor.getDouble(3);
                 String imageUrl = cursor.getString(4); // Fetch image URL
 
-                 product = new ProductTest();
+                product = new ProductTest();
                 product.setId(id);
                 product.setName(name);
                 product.setProductDetail(detail);
@@ -191,7 +194,7 @@ public class ProductRepository extends SQLiteOpenHelper {
         return product;
     }
 
-    public List<Product> getProductInWishList() {
+    public List<Product> getProductInWishList(int userId) {
         List<Product> listProduct = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT w.product_id, p.product_name" +
@@ -199,7 +202,8 @@ public class ProductRepository extends SQLiteOpenHelper {
                 ", pi.image_url, w.add_date" +
                 " FROM WISHLIST as w" +
                 " JOIN PRODUCT_IMAGE as pi on w.product_id = pi.product_id" +
-                " JOIN PRODUCT as p on w.product_id = p.product_id";
+                " JOIN PRODUCT as p on w.product_id = p.product_id" +
+                " WHERE w.user_id = " + userId;
         Cursor cursor = db.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
@@ -226,12 +230,13 @@ public class ProductRepository extends SQLiteOpenHelper {
         return listProduct;
     }
 
-    public Long insertWishList(Product product) {
+    public Long insertWishList(int productId, int userId) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("product_id", product.getId());
-        values.put("add_date", product.getDate());
+        values.put("product_id", productId);
+        values.put("add_date", LocalDateTime.now().toString());
+        values.put("user_id", userId);
 
         Long result = db.insert("Wishlist", null, values);
 //        db.close();
