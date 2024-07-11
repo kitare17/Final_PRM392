@@ -1,17 +1,21 @@
 package com.example.myapplication.adapter;
 
+
+
 import android.content.Context;
+import android.graphics.Color;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.myapplication.ProductDetailActivity;
+
 import com.example.myapplication.R;
+import com.example.myapplication.model.Product;
 import com.example.myapplication.model.ProductTest;
 import com.squareup.picasso.Picasso;
 
@@ -22,12 +26,29 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
     private List<ProductTest> productList;
     private final LayoutInflater inflater;
     private Context context;
+    private OnItemClickListener onItemClickListener;
+    private OnHeartClickListener onHeartClickListener;
 
+    public interface OnItemClickListener {
+        void onItemClick(ProductTest product);
+    }
 
-    public ProductTestAdapter(Context context,List<ProductTest> productList, LayoutInflater inflater) {
+    public interface OnHeartClickListener {
+        void onHeartClick(ProductTest product, boolean isFavorite);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnHeartClickListener(OnHeartClickListener onHeartClickListener) {
+        this.onHeartClickListener = onHeartClickListener;
+    }
+
+    public ProductTestAdapter(Context context, List<ProductTest> productList, LayoutInflater inflater) {
+        this.context = context;
         this.productList = productList;
         this.inflater = inflater;
-        this.context = context;
     }
 
     @NonNull
@@ -41,26 +62,15 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductTest product = productList.get(position);
         if (product != null) {
-            holder.productName.setText(
-                    product.getName()
-            );
+            holder.productName.setText(product.getName());
             holder.productType.setText(product.getType());
-            holder.productPrice.setText( product.formatVND());
+            holder.productPrice.setText( String.format("%.2f", product.getPrice())+" VND");
             // Use Picasso to load image from URL
             Picasso.get()
                     .load(product.getImageUrl())
                     .into(holder.productImage);
-
-            holder.productImage.setOnClickListener(v->{
-
-
-                Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("productId", product.getId()+"");
-                context.startActivity(intent);
-
-            });
         }
+        holder.bind(product);
     }
 
     @Override
@@ -68,8 +78,8 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
         return productList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView productImage;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView productImage, heartIcon;
         TextView productName;
         TextView productPrice;
         TextView productType;
@@ -80,6 +90,38 @@ public class ProductTestAdapter extends RecyclerView.Adapter<ProductTestAdapter.
             productName = itemView.findViewById(R.id.productName);
             productPrice = itemView.findViewById(R.id.productPrice);
             productType = itemView.findViewById(R.id.productType);
+            heartIcon = itemView.findViewById(R.id.ic_heart);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onItemClick(productList.get(position));
+                        }
+                    }
+                }
+            });
+
+            heartIcon.setOnClickListener(v -> {
+                if (onHeartClickListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        ProductTest product = productList.get(position);
+                        boolean isFavorite = product.isFavorite();
+                        onHeartClickListener.onHeartClick(product, !isFavorite);
+                        product.setFavorite(!isFavorite);
+                        notifyItemChanged(position);
+                    }
+                }
+            });
+        }
+
+        public void bind(ProductTest product) {
+            productName.setText(product.getName());
+            productPrice.setText(String.valueOf(product.getPrice()));
+            heartIcon.setColorFilter(product.isFavorite() ? Color.RED : Color.GRAY);
         }
     }
 }
