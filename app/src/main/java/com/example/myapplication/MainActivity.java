@@ -139,6 +139,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, OrderHistory.class);
             startActivity(intent);
         }
+        else if (item.getItemId() == R.id.nav_chat) {
+            Intent intent = new Intent(MainActivity.this, ChatAuth.class);
+            startActivity(intent);
+        }
 //        } else if (item.getItemId() == R.id.nav_logout) {
 //            Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
 //            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Setting()).commit();
