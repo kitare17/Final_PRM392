@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -33,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class GetStarted extends AppCompatActivity {
     private AppCompatTextView btnLogin;
+    private AppCompatButton createAccountButton;
+    private TextView btnRegister, textViewSignIn;
 
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -44,6 +48,9 @@ public class GetStarted extends AppCompatActivity {
         setContentView(R.layout.activity_get_started);
         auth = FirebaseAuth.getInstance();
         btnLogin = findViewById(R.id.googleButton);
+        btnRegister = findViewById(R.id.textViewSignIn);
+        createAccountButton = findViewById(R.id.createAccountButton);
+        textViewSignIn = findViewById(R.id.textViewSignIn);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -52,6 +59,14 @@ public class GetStarted extends AppCompatActivity {
         mGoogleSignInClient= GoogleSignIn.getClient(this, gso);
         btnLogin.setOnClickListener(v -> {
             googleSingIn();
+        });
+        createAccountButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SignUp.class);
+            startActivity(intent);
+        });
+        btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Login.class);
+            startActivity(intent);
         });
 
 

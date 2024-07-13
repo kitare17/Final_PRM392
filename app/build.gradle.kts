@@ -57,6 +57,15 @@ dependencies {
     implementation("com.google.firebase:firebase-database")
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
 
+    implementation ("androidx.room:room-runtime:2.4.2")
+    annotationProcessor ("androidx.room:room-compiler:2.4.2")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+
+    implementation ("com.sun.mail:android-mail:1.6.2")
 
 
 

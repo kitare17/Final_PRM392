@@ -79,6 +79,18 @@
             android:name=".ChatAdmin"
             android:exported="true" />
         <activity
+            android:name=".SignUp"
+            android:exported="true" />
+        <activity
+            android:name=".NewPassword"
+            android:exported="true" />
+        <activity
+            android:name=".Login"
+            android:exported="true" />
+        <activity
+            android:name=".ForgotPasswordEmail"
+            android:exported="true" />
+        <activity
             android:name=".Landing"
             android:exported="true"
             android:label="DeskDelights">
