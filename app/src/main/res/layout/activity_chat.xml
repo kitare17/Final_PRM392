@@ -8,10 +8,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="555dp"
+        android:layout_height="511dp"
         android:layout_above="@id/messageInputLayout"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="296dp"
+        android:layout_marginBottom="28dp"
         android:padding="8dp" />
 
     <LinearLayout
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="170dp"
+        android:layout_marginBottom="31dp"
         android:orientation="horizontal"
         android:padding="8dp">
 
@@ -38,13 +38,4 @@
             android:text="Send" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="62dp"
-        android:text="Logout" />
 </RelativeLayout>

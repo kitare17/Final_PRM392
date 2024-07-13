@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,12 +31,13 @@ public class CustomerListActivity extends AppCompatActivity {
     private List<String> senderIds;
     private FirebaseAuth mAuth;
     private String adminId = "cxcq3OdM7EQ2aNyhq6RCYlwkh4y1"; // Replace with your admin ID
+    private ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_list);
-
+        backButton.findViewById(R.id.backButton);
         listViewCustomers = findViewById(R.id.listViewCustomers);
         mAuth = FirebaseAuth.getInstance();
 
@@ -47,14 +49,19 @@ public class CustomerListActivity extends AppCompatActivity {
 
         // Load sender IDs that sent messages to admin
         loadsenderIds();
-
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         // Handle item click in list view
         listViewCustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = senderIds.get(position);
-                UserInfoRepository userInfoRepository=new UserInfoRepository(getApplicationContext());
-                UserInfo userByIdGoogle =   userInfoRepository.getUserByName(name);
+                UserInfoRepository userInfoRepository = new UserInfoRepository(getApplicationContext());
+                UserInfo userByIdGoogle = userInfoRepository.getUserByName(name);
                 openChatActivity(userByIdGoogle.getGoogleId());
             }
         });
@@ -72,9 +79,9 @@ public class CustomerListActivity extends AppCompatActivity {
                     for (DataSnapshot messageSnapshot : conversationSnapshot.child("messages").getChildren()) {
                         String senderId = messageSnapshot.child("senderId").getValue(String.class);
                         //query
-                        UserInfoRepository userInfoRepository=new UserInfoRepository(getApplicationContext());
+                        UserInfoRepository userInfoRepository = new UserInfoRepository(getApplicationContext());
 
-                        UserInfo userByIdGoogle =   userInfoRepository.getUserByIdGoogle(senderId);
+                        UserInfo userByIdGoogle = userInfoRepository.getUserByIdGoogle(senderId);
                         if (senderId != null && !senderIds.contains(userByIdGoogle.getFullname()) && !senderId.equals(adminId)) {
 
                             senderIds.add(userByIdGoogle.getFullname());

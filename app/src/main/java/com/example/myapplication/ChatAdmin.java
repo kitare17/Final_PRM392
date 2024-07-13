@@ -58,8 +58,7 @@ public class ChatAdmin extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-        btnLogout = findViewById(R.id.buttonLogout);
-        btnLogout.setOnClickListener(v -> signOut());
+
 
 //        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 //        customerId = sharedPreferences.getString("userId", "1");

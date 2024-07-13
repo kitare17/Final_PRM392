@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.myapplication.R;
+import com.example.myapplication.database.UserInfoRepository;
 import com.example.myapplication.model.Message;
 
 import java.time.Instant;
@@ -51,15 +52,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         TextView textViewMessage;
         TextView textViewTime;
+        TextView textViewUser;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewMessage = itemView.findViewById(R.id.textViewMessage);
             textViewTime = itemView.findViewById(R.id.textViewTime);
+            textViewUser = itemView.findViewById(R.id.textViewUser);
         }
 
         public void bind(Message message) {
             textViewMessage.setText(message.getMessage());
+            textViewUser.setText(message.getSenderId());
+            UserInfoRepository userInfoRepository= new UserInfoRepository(itemView.getContext());
+            String fullname = userInfoRepository.getUserByIdGoogle(message.getSenderId()).getFullname();
+            textViewUser.setText(fullname);
+
             // The timestamp in milliseconds
             long timestamp = message.getTimestamp();
 

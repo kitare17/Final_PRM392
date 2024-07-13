@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,7 @@ public class ChatActivity extends AppCompatActivity {
     private String customerId; // ID của khách hàng
     private Button btnLogout;
 
+
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -59,14 +61,14 @@ public class ChatActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-        btnLogout = findViewById(R.id.buttonLogout);
-        btnLogout.setOnClickListener(v -> signOut());
+
+
 
 //        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 //        customerId = sharedPreferences.getString("googleId", "1");
 //        Toast.makeText(this, customerId, Toast.LENGTH_SHORT).show();
         customerId = getIntent().getStringExtra("customerId"); // Lấy ID của khách hàng từ Intent
-        Toast.makeText(this, customerId, Toast.LENGTH_SHORT).show();
+
         // Xác định conversationId để đảm bảo mỗi cuộc trò chuyện là duy nhất
         String conversationId = getConversationId(customerId, adminId);
         messagesRef = FirebaseDatabase.getInstance("https://my-application-88747-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("messages").child("conversations").child(conversationId).child("messages");
@@ -100,7 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         // Gửi tin nhắn thành công
-                        Toast.makeText(ChatActivity.this, "Gửi tin nhắn thành công" + senderId, Toast.LENGTH_SHORT).show();
+
                         editTextMessage.setText("");
                     }
                 })
