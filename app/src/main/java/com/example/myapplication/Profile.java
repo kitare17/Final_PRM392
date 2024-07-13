@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ public class Profile extends Fragment {
     EditText fullnameEditText;
 
     UserViewModel userViewModel;
-
+    TextView changePasswordButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,13 +42,18 @@ public class Profile extends Fragment {
 
         saveBtn = (AppCompatButton) view.findViewById(R.id.btnSaveProfile);
         fullnameEditText = (EditText) view.findViewById(R.id.fullnameEdit);
+        changePasswordButton = (TextView) view.findViewById(R.id.changePasswordButton);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String googleId = sharedPreferences.getString("googleId", "googleId");
         String fullname = sharedPreferences.getString("fullname", "fullname");
         fullnameEditText.setText(fullname);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-
+        if (googleId.length() > 2) {
+            changePasswordButton.setVisibility(View.GONE);
+        } else {
+            changePasswordButton.setVisibility(View.VISIBLE);
+        }
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +69,14 @@ public class Profile extends Fragment {
             }
         });
 
-
+        changePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), NewPassword.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
