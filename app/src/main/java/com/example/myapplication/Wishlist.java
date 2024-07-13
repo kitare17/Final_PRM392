@@ -38,8 +38,8 @@ public class Wishlist extends AppCompatActivity implements WishListAdapter.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wishlist);
-        navigationView = findViewById(R.id.bottom_nav);
-        navigationView.setSelectedItemId(R.id.action_wishlist);
+
+//        navigationView.setSelectedItemId(R.id.action_wishlist);
         imageView = findViewById(R.id.imageView);
         button = findViewById(R.id.edit_button);
 
@@ -50,20 +50,12 @@ public class Wishlist extends AppCompatActivity implements WishListAdapter.OnIte
         String userId = sharedPreferences.getString("userId", "1");
         productList = productRepository.getProductInWishList(Integer.parseInt(userId));
 
-//        productList = new ArrayList<>();
-//        productList.add(new Product(R.drawable.img, "Nike Sportswear Club Fleece", 99));
-//        productList.add(new Product(R.drawable.img, "Trail Running Jacket Nike Windrunner", 99));
-//        productList.add(new Product(R.drawable.img, "Trail Running Jacket Nike Windrunner", 99));
-//        productList.add(new Product(R.drawable.img, "Nike Sportswear Club Fleece", 99));
-//        productList.add(new Product(R.drawable.img, "Nike Sportswear Club Fleece", 99));
-//        productList.add(new Product(R.drawable.img, "Nike Sportswear Club Fleece", 99));
-//        productList.add(new Product(R.drawable.img, "Nike Sportswear Club Fleece", 99));
 
 
         recyclerView = findViewById(R.id.rvProducts);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new WishListAdapter(productList, productRepository);
+        adapter = new WishListAdapter(getApplicationContext(),productList, productRepository);
         recyclerView.setAdapter(adapter);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +76,7 @@ public class Wishlist extends AppCompatActivity implements WishListAdapter.OnIte
     protected void onResume() {
         super.onResume();
         // Update the selected item to Wishlist
-        navigationView.setSelectedItemId(R.id.action_wishlist);
+//        navigationView.setSelectedItemId(R.id.action_wishlist);
     }
 
     @Override

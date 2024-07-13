@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.ProductDetailActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.database.ProductRepository;
 import com.example.myapplication.model.Product;
@@ -26,6 +28,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
     private boolean isEditMode = false;
     private ProductRepository productRepository;
     private OnItemClickListener onItemClickListener;
+    private Context context;
 
     public interface OnItemClickListener {
         void onItemClick(Product product);
@@ -35,7 +38,8 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         this.onItemClickListener = onItemClickListener;
     }
 
-    public WishListAdapter(List<Product> productList, ProductRepository productRepository) {
+    public WishListAdapter(Context context, List<Product> productList, ProductRepository productRepository) {
+        this.context = context;
         this.productList = productList;
         this.productRepository = productRepository;
     }
@@ -64,11 +68,19 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText(String.valueOf(product.getPrice()));
+        holder.priceTextView.setText(product.formatVND());
         Picasso.get()
                 .load(product.getImageUrl())
                 .into(holder.imageView);
         holder.btnRemove.setVisibility(isEditMode ? View.VISIBLE : View.INVISIBLE);
+        holder.imageView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("productId", product.getId() + "");
+            context.startActivity(intent);
+        });
+
+
         holder.btnRemove.setOnClickListener(v -> {
             productRepository.deleteWish(product.getId());
             productList.remove(position);
@@ -112,7 +124,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
 
         public void bind(Product product) {
             nameTextView.setText(product.getName());
-            priceTextView.setText(String.valueOf(product.getPrice()));
+            priceTextView.setText(product.formatVND());
         }
     }
 }

@@ -1,19 +1,25 @@
 package com.example.myapplication.adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.OrderDetailActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Order;
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
@@ -41,13 +47,24 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = orderList.get(position);
-        holder.orderNameTextView.setText(order.getProductName());
-        holder.orderAmountTextView.setText(String.valueOf(order.getAmount()));
+        holder.orderNameTextView.setText("Order "+ order.getOrderId());
+        holder.orderAmountTextView.setText("");
+
         holder.orderCreateDateTextView.setText(order.getCreateDate());
 
         Picasso.get()
-                .load(order.getImageUrl())
+                .load("https://cdn-icons-png.flaticon.com/512/6632/6632848.png")
                 .into(holder.orderImageView);
+
+        holder.orderImageView.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), OrderDetailActivity.class);
+            intent.putExtra("orderId", order.getOrderId()+"");
+            intent.putExtra("address", order.getAddress()+"");
+            intent.putExtra("phone", order.getPhone()+"");
+            v.getContext().startActivity(intent);
+            Toast.makeText(v.getContext(),"ok",Toast.LENGTH_SHORT).show();
+
+        });
     }
 
     @Override

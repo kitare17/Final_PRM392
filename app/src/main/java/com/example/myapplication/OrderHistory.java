@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -30,7 +32,10 @@ public class OrderHistory extends AppCompatActivity {
         ivBack.setOnClickListener(v -> onBackPressed());
 
         orderRepository = new OrderRepository(this);
-        orderList = orderRepository.getOrders();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "1");
+
+        orderList = orderRepository.getOrders(Integer.parseInt(userId));
 
         recyclerView = findViewById(R.id.recycler_view);
         orderAdapter = new OrderAdapter(orderList);

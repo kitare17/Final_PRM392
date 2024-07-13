@@ -59,7 +59,7 @@ public class CartRepository extends SQLiteOpenHelper {
         List<ProductCart> list = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex("item_id"));
+            int id = cursor.getInt(cursor.getColumnIndex("product_id"));
             int amount = cursor.getInt(cursor.getColumnIndex("amount"));
             String productName = cursor.getString(cursor.getColumnIndex("product_name"));
             double price = cursor.getDouble(cursor.getColumnIndex("price"));
@@ -101,6 +101,7 @@ public class CartRepository extends SQLiteOpenHelper {
     public void addToCart(String productId, int amount, int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        System.out.println("zo ne cart=>"+productId);
         if (checkExistProduct(productId, userId)) {
             Toast.makeText(context, "This product already in cart", Toast.LENGTH_SHORT).show();
         } else {
@@ -153,7 +154,7 @@ public class CartRepository extends SQLiteOpenHelper {
 
 
         for (ProductCart data : listItem) {
-
+            System.out.println("sp them =====>"+data.getName() +data.getId());
             ContentValues values = new ContentValues();
             values.put("order_id", orderId);
             values.put("product_id", data.getId());
