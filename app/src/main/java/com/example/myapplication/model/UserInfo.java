@@ -4,7 +4,7 @@ public class UserInfo {
     private String userId ;
     private String fullname ;
     private String email  ;
-
+    private String password;
     private String avatar;
 
     private int role;
@@ -76,6 +76,14 @@ public class UserInfo {
 
     public void setGoogleId(String googleId) {
         this.googleId = googleId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
