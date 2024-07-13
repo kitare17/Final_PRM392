@@ -163,6 +163,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         addToCartButton.setOnClickListener(v->{
 
             CartRepository cartRepository = new CartRepository(getApplicationContext());
+
             cartRepository.addToCart(product.getId()+"",1,Integer.parseInt(userInfo.getUserId()));
 
 

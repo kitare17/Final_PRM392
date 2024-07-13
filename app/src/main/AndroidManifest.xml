@@ -19,9 +19,11 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".ChatAuth"
+            android:name=".OrderDetailActivity"
             android:exported="false" />
-        <!-- <activity -->
+        <activity
+            android:name=".ChatAuth"
+            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".AddAddress" -->
         <!-- android:exported="false" /> -->
         <meta-data

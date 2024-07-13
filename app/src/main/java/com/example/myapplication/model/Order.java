@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import java.time.LocalDateTime;
+
 public class Order {
 
     private int orderId;
@@ -17,6 +19,14 @@ public class Order {
         this.imageUrl = imageUrl;
         this.amount = amount;
         this.purchase = purchase;
+        this.createDate = createDate;
+    }
+
+    public Order(int orderId, int userId, String address, String phone, String createDate) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.address = address;
+        this.phone = phone;
         this.createDate = createDate;
     }
 
@@ -77,7 +87,9 @@ public class Order {
     }
 
     public String getCreateDate() {
-        return createDate;
+        LocalDateTime parseDate=LocalDateTime.parse(createDate);
+
+        return  parseDate.getDayOfMonth()+" "+parseDate.getMonth()+" "+parseDate.getYear();
     }
 
     public void setCreateDate(String createDate) {
