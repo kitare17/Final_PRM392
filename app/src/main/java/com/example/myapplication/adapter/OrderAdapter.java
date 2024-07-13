@@ -19,14 +19,15 @@ import java.util.List;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
     private List<Order> orderList;
+    private OnOrderClickListener listener;
 
-    public OrderAdapter(List<Order> orderList) {
-        this.orderList = orderList;
+    public interface OnOrderClickListener {
+        void onOrderClick(Order order);
     }
 
-    public void setOrderList(List<Order> orderList) {
+    public OrderAdapter(List<Order> orderList, OnOrderClickListener listener) {
         this.orderList = orderList;
-        notifyDataSetChanged();
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,7 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.orderNameTextView.setText(order.getProductName());
         holder.orderAmountTextView.setText(String.valueOf(order.getAmount()));
         holder.orderCreateDateTextView.setText(order.getCreateDate());
-
+        holder.itemView.setOnClickListener(v -> listener.onOrderClick(order));
         Picasso.get()
                 .load(order.getImageUrl())
                 .into(holder.orderImageView);

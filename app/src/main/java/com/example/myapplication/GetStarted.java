@@ -4,16 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.database.UserInfoRepository;
 import com.example.myapplication.model.UserInfo;
@@ -46,7 +42,7 @@ public class GetStarted extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient= GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         btnLogin.setOnClickListener(v -> {
             googleSingIn();
         });
@@ -54,7 +50,7 @@ public class GetStarted extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String googleId = sharedPreferences.getString("googleId", null);
-        if (googleId!=null) {
+        if (googleId != null) {
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -63,6 +59,7 @@ public class GetStarted extends AppCompatActivity {
 
 
     }
+
     private void googleSingIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 20);
@@ -71,7 +68,7 @@ public class GetStarted extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== 20) {
+        if (requestCode == 20) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -92,6 +89,7 @@ public class GetStarted extends AppCompatActivity {
             }
         }
     }
+
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
@@ -100,17 +98,17 @@ public class GetStarted extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = auth.getCurrentUser();
 
-                        String fullname= user.getDisplayName();
-                        String email= user.getEmail();
-                        String avatar= user.getPhotoUrl().toString();
-                        String googleId=user.getUid();
+                        String fullname = user.getDisplayName();
+                        String email = user.getEmail();
+                        String avatar = user.getPhotoUrl().toString();
+                        String googleId = user.getUid();
 
 
-                        UserInfo userInfo=new UserInfo(fullname,email,avatar,0,googleId);
-                        UserInfoRepository userInfoRepository=new UserInfoRepository(getApplicationContext());
-                        boolean check=userInfoRepository.checkExistIdGoogle(googleId);
-                        if (!check){
-                            Toast.makeText(this, "Not found "+googleId, Toast.LENGTH_SHORT).show();
+                        UserInfo userInfo = new UserInfo(fullname, email, avatar, 0, googleId);
+                        UserInfoRepository userInfoRepository = new UserInfoRepository(getApplicationContext());
+                        boolean check = userInfoRepository.checkExistIdGoogle(googleId);
+                        if (!check) {
+                            Toast.makeText(this, "Not found " + googleId, Toast.LENGTH_SHORT).show();
                             userInfoRepository.register(userInfo);
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -121,14 +119,13 @@ public class GetStarted extends AppCompatActivity {
                             editor.putString("avatar", avatar);
                             editor.putInt("role", 0);
                             editor.putString("googleId", googleId);
-                            UserInfo userByIdGoogle =   userInfoRepository.getUserByIdGoogle(googleId);
+                            UserInfo userByIdGoogle = userInfoRepository.getUserByIdGoogle(googleId);
                             editor.putString("userId", userByIdGoogle.getUserId());
                             editor.apply();
-                        }
-                        else {
+                        } else {
 
                             Toast.makeText(this, "Welcome!!!", Toast.LENGTH_SHORT).show();
-                            UserInfo userByIdGoogle =   userInfoRepository.getUserByIdGoogle(googleId);
+                            UserInfo userByIdGoogle = userInfoRepository.getUserByIdGoogle(googleId);
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("userId", userByIdGoogle.getUserId());

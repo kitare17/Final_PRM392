@@ -20,6 +20,14 @@ public class Order {
         this.createDate = createDate;
     }
 
+    public Order(int orderId, int userId, String createDate, String address, String phone) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.createDate = createDate;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public String getProductName() {
         return productName;
     }
