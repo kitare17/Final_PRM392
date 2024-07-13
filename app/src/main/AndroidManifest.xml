@@ -9,73 +9,83 @@
 
     <application
         android:name=".notification.MyApplication"
-        android:label="DeskDelights"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
+        android:label="DeskDelights"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".AddAddress"-->
-<!--            android:exported="false" />-->
-
+        <activity
+            android:name=".ChatAuth"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".AddAddress" -->
+        <!-- android:exported="false" /> -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".OrderConfirmActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".CardDetail"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".AdressList"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".AddAddress"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MapsActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ShowItemActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ProductDetailActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".GetStarted"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".RatingList"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".AddReviewActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Wishlist"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".OrderHistory"
-            android:exported="true"></activity>
+            android:exported="true" />
+        <activity
+            android:name=".CustomerListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChatAdmin"
+            android:exported="true" />
         <activity
             android:name=".Landing"
-            android:label="DeskDelights"
-            android:exported="true">
+            android:exported="true"
+            android:label="DeskDelights">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

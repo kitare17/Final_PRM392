@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class GetStarted extends AppCompatActivity {
     private AppCompatTextView btnLogin;
@@ -138,6 +141,28 @@ public class GetStarted extends AppCompatActivity {
                             editor.putInt("role", 0);
                             editor.putString("googleId", googleId);
                             editor.apply();
+
+                            DatabaseReference usersRef = FirebaseDatabase.getInstance("https://my-application-88747-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Users").child(googleId);
+
+                            usersRef.setValue(userByIdGoogle)
+                                    .addOnCompleteListener(taska -> {
+                                        if (taska.isSuccessful()) {
+                                            Log.d("LoginGoogle", "User information saved to Firebase Realtime Database.");
+                                        } else {
+                                            Log.e("LoginGoogle", "Failed to save user information: " + taska.getException().getMessage());
+                                            Toast.makeText(this, "Failed to save user information.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+//                            if(googleId.equals("cxcq3OdM7EQ2aNyhq6RCYlwkh4y1")){
+//                                Intent intent = new Intent(this, CustomerListActivity.class);
+//                                startActivity(intent);
+//                            }
+//                            else {
+//                                // Navigate to OptionRole activity or any other activity as per your logic
+//                                Intent intent = new Intent(this, ChatActivity.class);
+//                                startActivity(intent);
+//                            }
                         }
 
 

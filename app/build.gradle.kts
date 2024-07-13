@@ -53,6 +53,9 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.code.gson:gson:2.8.7")
+    implementation ("com.firebaseui:firebase-ui-database:7.2.0")
+    implementation("com.google.firebase:firebase-database")
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
 
 
 
