@@ -91,7 +91,6 @@ public class Order {
 
         return  parseDate.getDayOfMonth()+" "+parseDate.getMonth()+" "+parseDate.getYear();
     }
-
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }

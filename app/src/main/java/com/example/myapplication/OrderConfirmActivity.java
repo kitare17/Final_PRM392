@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,6 +23,9 @@ import java.util.List;
 
 public class OrderConfirmActivity extends AppCompatActivity {
 
+    private ImageView backButton;
+    private AppCompatButton historyOrderButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +37,23 @@ public class OrderConfirmActivity extends AppCompatActivity {
             return insets;
         });
 
+        backButton=findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
+        historyOrderButton=findViewById(R.id.historyOrderButton);
+        historyOrderButton.setOnClickListener(v -> {
+            Intent intent = new Intent(OrderConfirmActivity.this, OrderHistory.class);
+            startActivity(intent);
+            finish();
+        });
+
+
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String googleId = sharedPreferences.getString("googleId", "googleId");
         UserInfoRepository userInfoRepository = new UserInfoRepository(getApplicationContext());
         UserInfo userInfo = userInfoRepository.getUserByIdGoogle(googleId);
-        CartRepository cartRepository=new CartRepository(getApplicationContext());
+        CartRepository cartRepository = new CartRepository(getApplicationContext());
 
 
         List<ProductCart> itemList = cartRepository.listAll(Integer.parseInt(userInfo.getUserId()));
@@ -44,8 +61,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         String address = sharedPreferences1.getString("address", "Undefine");
         String phone = sharedPreferences1.getString("phone", "Undefine");
 
-        cartRepository.makeOrder(Integer.parseInt(userInfo.getUserId()), address, phone,itemList);
-
+        cartRepository.makeOrder(Integer.parseInt(userInfo.getUserId()), address, phone, itemList);
 
 
     }
@@ -53,7 +69,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Toast.makeText(this, "Back button pressed", Toast.LENGTH_SHORT).show();
-        Intent intent =new Intent(OrderConfirmActivity.this, MainActivity.class);
+        Intent intent = new Intent(OrderConfirmActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
