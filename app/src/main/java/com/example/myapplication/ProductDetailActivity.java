@@ -97,8 +97,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String googleId = sharedPreferences.getString("googleId", "googleId");
 
+        // sua cac bug tuong tu o day
+        String userId = sharedPreferences.getString("userId", "userId");
         UserInfoRepository userInfoRepository = new UserInfoRepository(getApplicationContext());
-        UserInfo userInfo = userInfoRepository.getUserByIdGoogle(googleId);
+
+        UserInfo userInfo = userInfoRepository.getUserById(userId);
 
 
 

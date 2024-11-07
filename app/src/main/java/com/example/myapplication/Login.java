@@ -62,6 +62,7 @@ public class Login extends AppCompatActivity {
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("fullname", userByIdGoogle.getFullname());
+                    editor.putString("userId", userByIdGoogle.getUserId());
                     editor.putString("email", userByIdGoogle.getEmail());
                     editor.putString("avatar", userByIdGoogle.getAvatar());
                     editor.putInt("role", 0);

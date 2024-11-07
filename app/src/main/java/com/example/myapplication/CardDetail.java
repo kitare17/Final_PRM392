@@ -68,10 +68,10 @@ public class CardDetail extends AppCompatActivity {
 
         CartRepository cartRepository=new CartRepository(getApplicationContext());
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String googleId = sharedPreferences.getString("googleId", "googleId");
-
+        String userId = sharedPreferences.getString("userId", "userId");
         UserInfoRepository userInfoRepository = new UserInfoRepository(getApplicationContext());
-        UserInfo userInfo = userInfoRepository.getUserByIdGoogle(googleId);
+
+        UserInfo userInfo = userInfoRepository.getUserById(userId);
 
 
 

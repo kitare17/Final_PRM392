@@ -82,6 +82,7 @@ public class GetStarted extends AppCompatActivity {
 
     }
     private void googleSingIn() {
+        Toast.makeText(this, "Signing In", Toast.LENGTH_SHORT).show();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 20);
     }
